@@ -19,4 +19,12 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DTO\DTO.csproj" />
+    <ProjectReference Include="..\Model\Model.csproj" />
+    <ProjectReference Include="..\Shared\Shared.csproj" />
+    <ProjectReference Include="..\StubLib\StubLib.csproj" />
+    <ProjectReference Include="..\Tests\ConsoleTests\ConsoleTests.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -11,7 +11,7 @@ namespace DTO
     {
         public string Name { get; set; }
         public string Bio { get; set; }
-        public string Icone { get; set; }
+        public string Icon { get; set; }
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using DTO;
+﻿using API_lol.Mapper;
+using DTO;
 using Microsoft.AspNetCore.Mvc;
 using Model;
 using StubLib;
@@ -19,34 +20,60 @@ namespace API_lol.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> GetChampions()
+        {
+            var stub = new StubData();
+            var lesChampions = await stub.ChampionsMgr.GetItems(0, await stub.ChampionsMgr.GetNbItems());
+
+            var lesChampionsDto = lesChampions.Select(champion => champion.ToDTO());
+           
+            return Ok(lesChampionsDto); // les retours API doivent être des DTO
+        }
+/*
+        [HttpGet("{string:Name}")]
+        public async Task<IActionResult> GetByName(string Name)
+        {
+            var stub = new StubData();
+            List<Champion> champions = new List<Champion>();
+
+            var champion = await stub.ChampionsMgr.GetItemsByCharacteristic(Name, 1, 1);
+            var dto = new ChampionDTO();
+            dto.AddRange(champions);
+*//*            ChampionDTO dto = await champions;
+*//* 
+            return Ok(dto);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete()
         {
             var stub = new StubData();
 
-            var dto = new ChampionDTO();
-            var lesChampions = new List<Champion>();
+            *//*var dto = new ChampionDTO();*//*
+            var champions = await stub.ChampionsMgr
+           ;
+            return Ok(champions);
+        }*/
 
-            return Ok(lesChampions);
-        }
 
-        // des exemples
+            // des exemples
 
-        // POST api/<ChampionController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+            // POST api/<ChampionController>
+            /*[HttpPost]
+            public void Post([FromBody] string value)
+            {
+            }
 
-        // PUT api/<ChampionController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+            // PUT api/<ChampionController>/5
+            [HttpPut("{id}")]
+            public void Put(int id, [FromBody] string value)
+            {
+            }
 
-        // DELETE api/<ChampionController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+            // DELETE api/<ChampionController>/5
+            [HttpDelete("{id}")]
+            public void Delete(int id)
+            {
+            }*/
     }
 }
