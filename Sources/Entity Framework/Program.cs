@@ -3,7 +3,7 @@
 namespace Entity_Framework
 {
     internal class Program
-    { 
+    {
         static void Main(string[] args)
         {
             using (var context = new ChampionDbContext())
@@ -29,9 +29,7 @@ namespace Entity_Framework
                 );
                 context.SaveChangesAsync();
             }
-                
 
-     
         }
     }
 }
