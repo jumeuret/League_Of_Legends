@@ -10,8 +10,23 @@ namespace Entity_Framework
     public class ChampionDbContext : DbContext
     {
         public DbSet<ChampionEntity> Champions { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-                    => optionsBuilder.UseSqlite("Data Source=LigueOfLegend.db");
-        // @"Server = LocalDataBase.db"
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlite("Data Source=LigueOfLegend.db");
+            }
+        }
+
+        public ChampionDbContext()
+        {
+        }
+        public ChampionDbContext(DbContextOptions<ChampionDbContext> options)
+            : base(options)
+        { }
     }
 }
+
+
+

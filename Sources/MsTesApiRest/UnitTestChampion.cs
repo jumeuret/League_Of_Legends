@@ -19,11 +19,11 @@ namespace MsTesApiRest
             new Champion("Alistar", ChampionClass.Tank),
             };
             // Act
-            List<Champion> result = await service.
-
+/*            List<Champion> result = await service
+*/
         // Assert
-        var result = await SomeAsyncOperation();
-            Assert.AreEqual(champions, );
+       /* var result = await SomeAsyncOperation();
+            Assert.AreEqual(champions, );*/
         }
     }
 }

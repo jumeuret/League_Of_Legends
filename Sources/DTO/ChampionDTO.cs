@@ -13,5 +13,12 @@ namespace DTO
         public string Bio { get; set; }
         public string Icon { get; set; }
 
+        public ChampionDTO(string Name, string Bio, string Icon)
+        {
+            this.Name = Name;
+            this.Bio = Bio;
+            this.Icon = Icon;
+        }
+
     }
 }
