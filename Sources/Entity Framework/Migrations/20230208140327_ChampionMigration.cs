@@ -18,7 +18,9 @@ namespace EntityFramework.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Icon = table.Column<string>(type: "TEXT", nullable: false),
-                    Bio = table.Column<string>(type: "TEXT", nullable: false)
+                    Bio = table.Column<string>(type: "TEXT", nullable: false),
+                    Image = table.Column<string>(type: "TEXT", nullable: false),
+                    Class = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

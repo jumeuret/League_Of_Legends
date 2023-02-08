@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityFramework.Migrations
 {
     [DbContext(typeof(ChampionDbContext))]
-    [Migration("20230204084604_ChampionMigration")]
+    [Migration("20230208140327_ChampionMigration")]
     partial class ChampionMigration
     {
         /// <inheritdoc />
@@ -29,7 +29,15 @@ namespace EntityFramework.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Class")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Icon")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
