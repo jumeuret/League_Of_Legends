@@ -20,5 +20,8 @@
     <ProjectReference Include="..\Model\Model.csproj" />
     <ProjectReference Include="..\StubLib\StubLib.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
 
 </Project>

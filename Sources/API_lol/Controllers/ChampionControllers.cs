@@ -1,4 +1,4 @@
-﻿using API_lol.Mapper;
+using API_lol.Mapper;
 using DTO;
 using Microsoft.AspNetCore.Mvc;
 using Model;
@@ -22,8 +22,7 @@ namespace API_lol.Controllers
         [HttpGet]
         public async Task<IActionResult> GetChampions()
         {
-            var stub = new StubData();
-            var lesChampions = await stub.ChampionsMgr.GetItems(0, await stub.ChampionsMgr.GetNbItems());
+            var lesChampions = await _dataManager.ChampionsMgr.GetItems(0, await _dataManager.ChampionsMgr.GetNbItems());
 
             var lesChampionsDto = lesChampions.Select(champion => champion?.ToDTO());
            
