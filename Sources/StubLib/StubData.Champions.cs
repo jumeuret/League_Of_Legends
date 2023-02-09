@@ -7,12 +7,12 @@ namespace StubLib
 	{
 		private List<Champion> champions = new()
 		{
-			new Champion("Akali", ChampionClass.Assassin),
-			new Champion("Aatrox", ChampionClass.Fighter),
-			new Champion("Ahri", ChampionClass.Mage),
-			new Champion("Akshan", ChampionClass.Marksman),
-			new Champion("Bard", ChampionClass.Support),
-			new Champion("Alistar", ChampionClass.Tank),
+			new Champion(1, "Akali", ChampionClass.Assassin),
+			new Champion(2, "Aatrox", ChampionClass.Fighter),
+			new Champion(3, "Ahri", ChampionClass.Mage),
+			new Champion(4, "Akshan", ChampionClass.Marksman),
+			new Champion(5, "Bard", ChampionClass.Support),
+			new Champion(6, "Alistar", ChampionClass.Tank),
 		};
 
 		public class ChampionsManager : IChampionsManager
@@ -59,6 +59,11 @@ namespace StubLib
                     index, count, orderingPropertyName, descending);
 
             private Func<Champion, Skill?, bool> filterBySkill = (champ, skill) => skill != null && champ.Skills.Contains(skill!);
+
+            private Func<Champion, int, bool> filterById = (champ, id) => champ.Id==id;
+
+            public Task<Champion> GetById(int id) 
+                => Task.FromResult(parent.champions.SingleOrDefault(champ => filterById(champ, id)));
 
             public Task<int> GetNbItemsBySkill(Skill? skill)
                 => parent.champions.GetNbItemsWithFilter(champ => filterBySkill(champ, skill));

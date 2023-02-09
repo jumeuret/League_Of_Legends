@@ -9,7 +9,6 @@ using Model;
 
 namespace Entity_Framework;
 
-
 [Table("Champion")]
 public class ChampionEntity
 {

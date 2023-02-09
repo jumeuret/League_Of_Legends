@@ -17,11 +17,11 @@ namespace TestEntityFramework
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
             
-            var options = new DbContextOptionsBuilder<ChampionDbContext>()
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseSqlite(connection)
                 .Options;
 
-            using (var context = new ChampionDbContext(options))
+            using (var context = new ApplicationDbContext(options))
             {
                 context.Database.EnsureCreated();
 
@@ -38,18 +38,18 @@ namespace TestEntityFramework
                         Icon = "Je suis l'icon du test2",
                 };
 
-                context.Champions.Add(champion1);
-                context.Champions.Add(champion2);
+                context.ChampionSet.Add(champion1);
+                context.ChampionSet.Add(champion2);
             }
 
-            using (var context = new ChampionDbContext(options))
+            using (var context = new ApplicationDbContext(options))
             {
                 context.Database.EnsureCreated();
 
-                Assert.Equal(2, context.Champions.Count());
-                Assert.Equal("Test1", context.Champions.First().Name);
-                Assert.Equal("Je suis la bio du test1", context.Champions.First().Bio);
-                Assert.Equal("Je suis l'icone du test1", context.Champions.First().Icon);
+                Assert.Equal(2, context.ChampionSet.Count());
+                Assert.Equal("Test1", context.ChampionSet.First().Name);
+                Assert.Equal("Je suis la bio du test1", context.ChampionSet.First().Bio);
+                Assert.Equal("Je suis l'icone du test1", context.ChampionSet.First().Icon);
             }
         }
 
@@ -59,11 +59,11 @@ namespace TestEntityFramework
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
             
-            var options = new DbContextOptionsBuilder<ChampionDbContext>()
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseSqlite(connection)
                 .Options;
 
-            using (var context = new ChampionDbContext(options))
+            using (var context = new ApplicationDbContext(options))
             {
                 context.Database.EnsureCreated();
 
@@ -80,26 +80,26 @@ namespace TestEntityFramework
                     Icon = "Je suis l'icon du test2",
                 };
 
-                context.Champions.Add(champion1);
-                context.Champions.Add(champion2);
+                context.ChampionSet.Add(champion1);
+                context.ChampionSet.Add(champion2);
             }
 
-            using (var context = new ChampionDbContext(options))
+            using (var context = new ApplicationDbContext(options))
             {
                 context.Database.EnsureCreated();
 
-                Assert.Equal(2, context.Champions.Where(c => c.Name.ToLower().Contains("test")).Count());
-                var Test1 = context.Champions.Where(c => c.Name.ToLower().Contains("test")).First();
+                Assert.Equal(2, context.ChampionSet.Where(c => c.Name.ToLower().Contains("test")).Count());
+                var Test1 = context.ChampionSet.Where(c => c.Name.ToLower().Contains("test")).First();
                 Test1.Name = "Toto";
                 context.SaveChanges();
             }
             
-            using (var context = new ChampionDbContext(options))
+            using (var context = new ApplicationDbContext(options))
             {
                 context.Database.EnsureCreated();
 
-                Assert.Equal(1, context.Champions.Where(c => c.Name.ToLower().Contains("test")).Count());
-                Assert.Equal(1, context.Champions.Where(c => c.Name.ToLower().Contains("toto")).Count());
+                Assert.Equal(1, context.ChampionSet.Where(c => c.Name.ToLower().Contains("test")).Count());
+                Assert.Equal(1, context.ChampionSet.Where(c => c.Name.ToLower().Contains("toto")).Count());
             }
 
         }

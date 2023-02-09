@@ -13,6 +13,8 @@ namespace Model
 
 	public interface IChampionsManager : IGenericDataManager<Champion?>
 	{
+		Task<Champion> GetById(int id);
+
 		Task<int> GetNbItemsByCharacteristic(string charName);
 		Task<IEnumerable<Champion?>> GetItemsByCharacteristic(string charName, int index, int count, string? orderingPropertyName = null, bool descending = false);
 
