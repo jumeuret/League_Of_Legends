@@ -18,6 +18,10 @@ namespace API_lol.Controllers
             _dataManager = dataManager;
         }
 
+        /// <summary>
+        ///  Get Champions
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetChampions()
         {
