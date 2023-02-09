@@ -21,9 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO", "DTO\DTO.csproj", "{5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entity Framework", "Entity Framework\Entity Framework.csproj", "{0917DBBF-474C-4FF5-8238-43A6D3E73FDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestEntityFramework", "TestEntityFramework\TestEntityFramework.csproj", "{61E8166F-7B8F-4ACA-9BC2-0CE1BEE3D0B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestEntityFramework", "TestEntityFramework\TestEntityFramework.csproj", "{61E8166F-7B8F-4ACA-9BC2-0CE1BEE3D0B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApiRest", "TestApiRest\TestApiRest.csproj", "{FAC23167-30B9-458F-8DC5-C80D7FFF8BBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApiRest", "TestApiRest\TestApiRest.csproj", "{FAC23167-30B9-458F-8DC5-C80D7FFF8BBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,6 +74,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{1889FA6E-B7C6-416E-8628-9449FB9070B9} = {C76D0C23-1FFA-4963-93CD-E12BD643F030}
 		{B01D7EF2-2D64-409A-A29A-61FB7BB7A9DB} = {2C607793-B163-4731-A4D1-AFE8A7C4C170}
+		{61E8166F-7B8F-4ACA-9BC2-0CE1BEE3D0B6} = {C76D0C23-1FFA-4963-93CD-E12BD643F030}
+		{FAC23167-30B9-458F-8DC5-C80D7FFF8BBD} = {C76D0C23-1FFA-4963-93CD-E12BD643F030}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92F3083D-793F-4552-8A9A-0AD6534159C9}
