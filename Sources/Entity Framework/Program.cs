@@ -6,9 +6,9 @@ namespace Entity_Framework
     {
         static void Main(string[] args)
         {
-            using (var context = new ChampionDbContext())
+            using (var context = new ApplicationDbContext())
             {
-                context.Champions.AddRange(new ChampionEntity
+                context.ChampionSet.AddRange(new ChampionEntity
                 {
                     Name = "Test1",
                     Bio = "Je suis un test",
