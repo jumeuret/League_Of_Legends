@@ -18,7 +18,6 @@ namespace StubLib
 		public class ChampionsManager : IChampionsManager
         {
             private readonly StubData parent;
-
             public ChampionsManager(StubData parent)
                 => this.parent = parent;
 

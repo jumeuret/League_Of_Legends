@@ -20,7 +20,7 @@ namespace API_lol.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetChampions()
+        public async Task<IActionResult> Get()
         {
             var lesChampions = await _dataManager.ChampionsMgr.GetItems(0, await _dataManager.ChampionsMgr.GetNbItems());
 
@@ -28,6 +28,7 @@ namespace API_lol.Controllers
            
             return Ok(lesChampionsDto); // les retours API doivent être des DTO
         }
+
 
         // [HttpPost("Add")]
         // public async Task<IActionResult> Add([FromBody] ChampionDTO c)
