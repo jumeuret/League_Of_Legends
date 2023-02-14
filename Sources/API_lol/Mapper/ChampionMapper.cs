@@ -1,4 +1,4 @@
-﻿namespace API_lol.Mapper
+namespace API_lol.Mapper
 {
     using Model;
     using DTO;
@@ -24,4 +24,3 @@
         }
     }
 }
-

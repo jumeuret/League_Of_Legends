@@ -1,4 +1,4 @@
-﻿using API_lol.Mapper;
+using API_lol.Mapper;
 using DTO;
 using Microsoft.AspNetCore.Mvc;
 using Model;

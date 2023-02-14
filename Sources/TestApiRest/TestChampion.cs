@@ -17,6 +17,15 @@ public class UnitTest1
         Assert.NotNull(championDto);
         Assert.Equal("Ivern", championDto.Name);
     }
+
+    [Fact]
+    public void Test_ContructeurDTOValideBio()
+    {
+        ChampionDTO championDto = new ChampionDTO("Ivern", "test bio", "test icon");
+        Assert.NotNull(championDto);
+        Assert.Equal("test bio", championDto.Bio);
+    }
+
     [Fact]
     public void Test_ContructeurDTOValideIcon()
     {
