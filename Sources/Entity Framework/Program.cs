@@ -1,4 +1,5 @@
 ﻿using Model;
+using StubLib;
 
 namespace Entity_Framework
 {
@@ -10,21 +11,22 @@ namespace Entity_Framework
             {
                 context.ChampionSet.AddRange(new ChampionEntity
                 {
-                    Name = "Test1",
-                    Bio = "Je suis un test",
-                    Icon = "Je suis l'icone du test",
+                    Id = 1,
+                    Name = "Champion1",
+                    Bio = "Je suis un champion",
+                    Icon = "Je suis l'icone du champion",
                 },
                 new ChampionEntity
                 {
-                    Name = "Test2",
-                    Bio = "Je suis un test",
-                    Icon = "Je suis l'icone du test",
+                    Name = "Champion2",
+                    Bio = "Je suis un champion",
+                    Icon = "Je suis l'icone du champion",
                 },
                 new ChampionEntity
                 {
-                    Name = "Test3",
-                    Bio = "Je suis un test",
-                    Icon = "Je suis l'icone du test",
+                    Name = "Champion3",
+                    Bio = "Je suis un champion",
+                    Icon = "Je suis l'icone du champion",
                 }
                 );
                 context.SaveChangesAsync();

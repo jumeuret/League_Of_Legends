@@ -5,24 +5,24 @@
 namespace EntityFramework.Migrations
 {
     /// <inheritdoc />
-    public partial class allMigration : Migration
+    public partial class Truc : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Champion",
+                name: "Champions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
                     Icon = table.Column<string>(type: "TEXT", nullable: true),
-                    Bio = table.Column<string>(type: "TEXT", nullable: false)
+                    Bio = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Champion", x => x.Id);
+                    table.PrimaryKey("PK_Champions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -44,8 +44,8 @@ namespace EntityFramework.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false),
-                    Type = table.Column<string>(type: "TEXT", nullable: false)
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    Type = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -59,20 +59,21 @@ namespace EntityFramework.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false),
-                    Icon = table.Column<string>(type: "TEXT", nullable: false),
-                    Image = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    Icon = table.Column<string>(type: "TEXT", nullable: true),
+                    Image = table.Column<string>(type: "TEXT", nullable: true),
                     Price = table.Column<float>(type: "REAL", nullable: false),
-                    ChampionEntityId = table.Column<int>(type: "INTEGER", nullable: true)
+                    ChampionEntityId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Skin", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Skin_Champion_ChampionEntityId",
+                        name: "FK_Skin_Champions_ChampionEntityId",
                         column: x => x.ChampionEntityId,
-                        principalTable: "Champion",
-                        principalColumn: "Id");
+                        principalTable: "Champions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -94,7 +95,7 @@ namespace EntityFramework.Migrations
                 name: "Skin");
 
             migrationBuilder.DropTable(
-                name: "Champion");
+                name: "Champions");
         }
     }
 }
