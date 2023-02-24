@@ -13,7 +13,7 @@ public class UnitTest1
     [Fact]
     public void Test_ContructeurDTOValideName()
     {
-        ChampionDTO championDto = new ChampionDTO("Ivern", "test bio", "test icon");
+        ChampionDTO championDto = new ChampionDTO("Ivern", "test bio", "test class","test icon");
         Assert.NotNull(championDto);
         Assert.Equal("Ivern", championDto.Name);
     }
@@ -21,25 +21,25 @@ public class UnitTest1
     [Fact]
     public void Test_ContructeurDTOValideBio()
     {
-        ChampionDTO championDto = new ChampionDTO("Ivern", "test bio", "test icon");
+        ChampionDTO championDto = new ChampionDTO("Ivern", "test bio", "test class",  "test icon");
         Assert.NotNull(championDto);
-        Assert.Equal("test bio", championDto.Bio);
+        Assert.Equal("test class", championDto.Class);
+    }
+    
+    [Fact]
+    public void Test_ContructeurDTOValideClass()
+    {
+        ChampionDTO championDto = new ChampionDTO("Ivern", "test bio", "test class",  "test icon");
+        Assert.NotNull(championDto);
+        Assert.Equal("test icon", championDto.Icon);
     }
 
     [Fact]
     public void Test_ContructeurDTOValideIcon()
     {
-        ChampionDTO championDto = new ChampionDTO("Ivern", "test bio", "test icon");
+        ChampionDTO championDto = new ChampionDTO("Ivern", "test bio", "test class",  "test icon");
         Assert.NotNull(championDto);
         Assert.Equal("test icon", championDto.Icon);
-    }
-        
-    [Fact]
-    public void Test_ContructeurDTOValideBio()
-    {
-        ChampionDTO championDto = new ChampionDTO("Ivern", "test bio", "test icon");
-        Assert.NotNull(championDto);
-        Assert.Equal("test bio", championDto.Bio);
     }
         
     [Fact]
@@ -56,7 +56,7 @@ public class UnitTest1
     [Fact]
     public async void Test_PostChampion()
     {
-        var championDTO = new ChampionDTO("Biographie", "Icone", "Nom");
+        var championDTO = new ChampionDTO("Biographie", "Icone", "test class" , "Nom");
         
         /*var championResult = await championController.Post(championDTO);
 
