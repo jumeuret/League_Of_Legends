@@ -7,7 +7,6 @@ namespace EntityFramework;
 public class CharasteristicsEntity
 {
     [Key]
-    public string nom { get; set; }
-    [Required]
-    public int niveau { get; set; }
+    public string Nom { get; set; }
+    public int Niveau { get; set; }
 }
