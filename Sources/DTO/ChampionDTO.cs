@@ -25,7 +25,7 @@ namespace DTO
         //public Collection<Skin> Skins { get; set; }
         //public IEnumerable<Skill> Skills { get; set; }
 
-        public ChampionDTO(int Id, string Name, string Bio, string Icon)
+        public ChampionDTO(int Id, string Name, string Bio, string Class, string Icon)
         {
             this.Id = Id;
             this.Name = Name;
