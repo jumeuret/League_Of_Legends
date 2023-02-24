@@ -13,7 +13,7 @@ namespace API_lol.Mapper
             return championDTO;
         }
 
-        public static Champion ToChampion(this ChampionDTO champDto)
+        public static Champion FromDTO(this ChampionDTO champDTO)
         {
             var champion = new Champion(champDto.Id, champDto.Name, ChampionClass.Assassin)
             {
@@ -24,4 +24,3 @@ namespace API_lol.Mapper
         }
     }
 }
-
