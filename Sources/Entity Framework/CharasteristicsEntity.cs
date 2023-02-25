@@ -8,5 +8,6 @@ public class CharasteristicsEntity
 {
     [Key]
     public string nom { get; set; }
+    [Required]
     public int niveau { get; set; }
 }

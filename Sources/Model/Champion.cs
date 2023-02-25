@@ -1,4 +1,4 @@
-﻿using System.Collections.Immutable;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Numerics;
 using System.Text;
@@ -41,9 +41,12 @@ public class Champion : IEquatable<Champion>
     public string Icon { get; set; }
 
     public LargeImage Image { get; set; }
+    
+    public int Id { get; set; }
 
-    public Champion(string name, ChampionClass champClass = ChampionClass.Unknown, string icon = "", string image = "", string bio = "")
+    public Champion(int id ,string name, ChampionClass champClass = ChampionClass.Unknown, string icon = "", string image = "", string bio = "")
     {
+        Id = id;
         Name = name;
         Class = champClass;
         Icon = icon;

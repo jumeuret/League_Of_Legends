@@ -26,5 +26,22 @@ public class ApplicationDbContext : DbContext
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     { }
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<ChampionEntity>().ToTable("Champions");
+
+        modelBuilder.Entity<ChampionEntity>().HasKey(c => c.Id);
+
+        modelBuilder.Entity<ChampionEntity>().Property(c => c.Id).ValueGeneratedOnAdd();
+
+        modelBuilder.Entity<ChampionEntity>().Property(c => c.Name).IsRequired();
+
+        modelBuilder.Entity<ChampionEntity>().Property(c => c.Icon);
+
+        modelBuilder.Entity<ChampionEntity>().Property(c => c.Bio);
+
+        base.OnModelCreating(modelBuilder);
+    }
 
 }
