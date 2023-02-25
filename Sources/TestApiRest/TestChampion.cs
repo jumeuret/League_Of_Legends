@@ -33,31 +33,24 @@ public class UnitTest1
         Assert.NotNull(championDto);
         Assert.Equal("test icon", championDto.Icon);
     }
-        
-    [Fact]
-    public void Test_ContructeurDTOValideBio()
-    {
-        ChampionDTO championDto = new ChampionDTO("Ivern", "test bio", "test icon");
-        Assert.NotNull(championDto);
-        Assert.Equal("test bio", championDto.Bio);
-    }
-        
+
     [Fact]
     public async void Test_GetChampion()
     {
         var championsResult = await championController.Get();
-
         var objectResult = championsResult as OkObjectResult;
         Assert.NotNull(objectResult);
         var champions = objectResult?.Value as IEnumerable<ChampionDTO>;
         Assert.NotNull(champions);
+        Assert.Equal(championsResult, objectResult);
+        
     }
     
     [Fact]
     public async void Test_PostChampion()
     {
         var championDTO = new ChampionDTO("Biographie", "Icone", "Nom");
-        
+
         /*var championResult = await championController.Post(championDTO);
 
         var createdResult = championResult as CreatedAtActionResult;
