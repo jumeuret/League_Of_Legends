@@ -8,8 +8,7 @@ namespace TestApiRest;
 
 public class UnitTest1
 {
-    private ChampionControllers championController = new ChampionControllers(new StubData());
-    
+
     [Fact]
     public void Test_ContructeurDTOValideName()
     {
@@ -35,27 +34,300 @@ public class UnitTest1
     }
 
     [Fact]
-    public async void Test_GetChampion()
+    public async void Test_GetChampion_ReturnOkResult()
     {
-        // var championsResult = await championController.Get();
-        // var objectResult = championsResult as OkObjectResult;
-        // Assert.NotNull(objectResult);
-        // var champions = objectResult?.Value as IEnumerable<ChampionDTO>;
-        // Assert.NotNull(champions);
-        // Assert.Equal(championsResult, objectResult);
-        //
+        // Arrange 
+        var  championController = new ChampionControllers(new StubData());
+        
+        // Act 
+        var championsResult = await championController.GetChampions();
+        var objectResult = championsResult as OkObjectResult; // renvoie null si le code retour n'est pas 200
+
+        // Assert 
+        Assert.NotNull(objectResult);
+        Assert.Equal(championsResult, objectResult);
     }
     
     [Fact]
-    public async void Test_PostChampion()
+    public async void Test_GetChampion_ReturnAllChampions()
     {
-        var championDTO = new ChampionDTO(1, "Biographie", "Icone", "Nom");
+        // Arrange 
+        var  championController = new ChampionControllers(new StubData());
+        
+        // Act 
+        var championsResult = await championController.GetChampions();
+        var objectResult = championsResult as OkObjectResult;
+        var champions = objectResult?.Value as IEnumerable<ChampionDTO>;
 
-        /*var championResult = await championController.Post(championDTO);
-
-        var createdResult = championResult as CreatedAtActionResult;
-        Assert.NotNull(createdResult);
-        var chamion = createdResult.Value as ChampionDTO;
-        Assert.NotNull(chamion);*/
+        // Assert 
+        Assert.NotNull(champions);
+        Assert.NotNull(objectResult);
+        Assert.Equal(champions.Count(), 6);
+        
     }
+
+    [Fact]
+    public async void Test_GetChampionReturnNotFoundResult()
+    {
+        //Arrange 
+        var championController = new ChampionControllers(new StubData());
+        
+        // Act
+        var championsResult = await championController.GetChampions();
+        var objectResult = championsResult as NotFoundResult;
+ 
+        //Assert
+        Assert.NotNull(objectResult);
+        
+    }
+
+    [Fact]
+    public async void Test_GetChampionById_ReturnTheChampion()
+    {
+        // Arrange 
+        var  championController = new ChampionControllers(new StubData());
+        int expeptedId = 1;
+        var expectedChampion = new ChampionDTO(1, "Akali", null, null);
+        
+        // Act 
+        var championResult = await championController.GetChampionById(expeptedId);
+        var objectResult = championResult as OkObjectResult;
+        var champion = objectResult.Value as ChampionDTO;
+
+        // Assert 
+        Assert.NotNull(objectResult);
+        Assert.NotNull(champion);
+        Assert.Equal(champion, expectedChampion);
+    }
+    
+    [Fact]
+    public async void Test_GetChampionById_ReturnOkResult()
+    {
+        // Arrange 
+        var  championController = new ChampionControllers(new StubData());
+        int expeptedId = 1;
+        
+        // Act 
+        var championResult = await championController.GetChampionById(expeptedId);
+        var objectResult = championResult as OkObjectResult;
+
+        // Assert 
+        Assert.NotNull(objectResult);
+        Assert.Equal(championResult, objectResult);
+        
+    }
+
+    [Fact]
+    public async void Test_GetChampionByIdReturnNotFoundResult()
+    {
+        //Arrange 
+        var championController = new ChampionControllers(new StubData());
+        int expeptedId = 999999999;
+        
+        // Act
+        var championResult = await championController.GetChampionById(expeptedId);
+        var objectResult = championResult as NotFoundResult;
+ 
+        //Assert
+        Assert.IsType<NotFoundResult>(objectResult);
+        
+    }
+    [Fact]
+    public async void Test_AddChampionReturnOkResult()
+    {
+        
+        // Arrange 
+        var  championController = new ChampionControllers(new StubData());
+        var championDTO = new ChampionDTO(10, "Biographie", "Icone", "Nom");
+        
+        // Act
+        var championResult = await championController.AddChampion(championDTO);
+        var objectResult = championResult as OkObjectResult;
+        
+        // Assert
+        Assert.NotNull(objectResult);
+        Assert.Equal(championResult, objectResult);
+    }
+    
+    [Fact]
+    public async void Test_AddChampionReturnNotFoundResult()
+    {
+        
+        // Arrange 
+        var  championController = new ChampionControllers(new StubData());
+        var championDTO = new ChampionDTO(10, "Biographie", "Icone", "Nom");
+        
+        // Act
+        var championResult = await championController.AddChampion(championDTO);
+        var objectResult = championResult as NotFoundResult;
+        
+        // Assert
+        Assert.NotNull(objectResult);
+        Assert.Equal(championResult, objectResult);
+    }
+    
+    [Fact]
+    public async void Test_AddChampionReturnAllChampion()
+    {
+        
+        // Arrange 
+        var  championController = new ChampionControllers(new StubData());
+        var championDTO = new ChampionDTO(10, "Biographie", "Icone", "Nom");
+        
+        // Act
+        await championController.AddChampion(championDTO);
+        var result = await championController.GetChampionById(championDTO.Id);
+        // Assert
+        var createdResult = Assert.IsType<ObjectResult >(result); // ObjectResult contient 201 si le champion a bien été créé et les infos sur le champions
+        var championResultDto = Assert.IsType<ChampionDTO>(createdResult.Value); // permet de recuperer le champion ( = valeur de la variable createdResult)
+        Assert.NotNull(result);
+        Assert.NotNull(createdResult);
+        Assert.NotNull(championResultDto);
+        Assert.Equal(championResultDto.Id, championDTO.Id);
+        Assert.Equal(championResultDto.Name, championDTO.Name);
+        Assert.Equal(championResultDto.Bio, championDTO.Bio);
+        Assert.Equal(championResultDto.Icon, championDTO.Icon);
+    }
+    
+    [Fact]
+    public async void Test_DeleteChampionReturnNotFoundResult()
+    {
+        
+        // Arrange 
+        var  championController = new ChampionControllers(new StubData());
+        int expectedId = 1;        
+        // Act
+        var championResult = await championController.DeleteChampion(expectedId);
+        var objectResult = championResult as NotFoundResult;
+        
+        // Assert
+        Assert.NotNull(objectResult);
+        Assert.Equal(championResult, objectResult);
+    }
+    
+    [Fact]
+    public async void Test_DeleteChampionReturnOkResult()
+    {
+        
+        // Arrange 
+        var  championController = new ChampionControllers(new StubData());
+        int expectedId = 1;        
+        // Act
+        var championResult = await championController.DeleteChampion(expectedId);
+        var objectResult = championResult as OkObjectResult;
+        
+        // Assert
+        Assert.NotNull(objectResult);
+        Assert.Equal(championResult, objectResult);
+    }
+    
+    [Fact]
+    public async void Test_DeleteChampionNotReturnChampionMatchinWithId()
+    {
+        
+        // Arrange 
+        var  championController = new ChampionControllers(new StubData());
+        int expectedId = 1;        
+        // Act
+        var championResult = await championController.DeleteChampion(expectedId);
+        var result = await championController.GetChampionById(expectedId);
+        var objectResult = result as NotFoundResult;
+
+        // Assert
+        Assert.NotNull(championResult);
+        Assert.NotNull(result);
+        Assert.Equal(result, objectResult);
+    }
+    
+    [Fact]
+    public async void Test_DeleteChampionReturnAllChampionsWithoutChampionMatchinWithId()
+    {
+        // Arrange 
+        var  championController = new ChampionControllers(new StubData());
+        int expectedId = 1;  
+        ChampionDTO championDto = new ChampionDTO(1,"Ivern", "test bio", "test icon");
+        List<ChampionDTO> champions = new()
+        {
+            new ChampionDTO(2, "Aatrox", null, null),
+            new ChampionDTO(3, "Ahri", null, null),
+            new ChampionDTO(4, "Akshan", null, null),
+            new ChampionDTO(5, "Bard", null, null),
+            new ChampionDTO(6, "Alistar", null, null)
+        };
+
+        // Act
+        var championResult = await championController.DeleteChampion(expectedId);
+        var allChampions = await championController.GetChampions();
+
+        // Assert
+        var createdResult = Assert.IsType<ObjectResult >(allChampions);
+        var listchampionsResultDto = Assert.IsType<List<ChampionDTO>>(createdResult.Value); 
+
+        Assert.NotNull(championResult);
+        Assert.NotNull(allChampions);
+        Assert.Equal(listchampionsResultDto, champions);
+    }
+
+    [Fact]
+    public async void Test_ModifyNameChampionReturnOkResult()
+    {
+        // Arrange
+        var championController = new ChampionControllers(new StubData());
+        int expectedId = 1;
+        string newName = "Akala";
+        
+        // Act 
+        var result = await championController.ModifyNameChampion(expectedId, newName);
+        var objectResult = result as OkObjectResult;
+        
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(result,objectResult);
+    }
+    
+    [Fact]
+    public async void Test_ModifyNameChampionReturnNotFoundResult()
+    {
+        // Arrange
+        var championController = new ChampionControllers(new StubData());
+        int expectedId = 1;
+        string newName = "Akala";
+        
+        // Act 
+        var result = await championController.ModifyNameChampion(expectedId, newName);
+        var objectResult = result as NotFoundResult;
+        
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(result,objectResult);
+    }
+    
+    [Fact]
+    public async void Test_ModifyNameChampionReturnChampionWithNewName()
+    {
+        // Arrange
+        var championController = new ChampionControllers(new StubData());
+        int expectedId = 1;
+        string newName = "Akala";
+
+        ChampionDTO champion = new ChampionDTO(1, newName, null, null);
+        
+        // Act 
+        var result = await championController.ModifyNameChampion(expectedId, newName);
+        var championId = await championController.GetChampionById(expectedId);
+        
+        // Façon 1 de faire pour récupérer le résultat
+        var objectResult = championId as OkObjectResult;
+        var newResult = objectResult.Value as ChampionDTO;
+        
+        // Façon 2 de faire pour récupérer le résultat
+        var createdResult = Assert.IsType<ObjectResult >(result);
+        var listchampionsResultDto = Assert.IsType<ChampionDTO>(createdResult.Value); 
+        
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(newResult, champion);
+        Assert.Equal(listchampionsResultDto,champion);
+    }
+
 }

@@ -10,6 +10,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<SkillEntity> SkillSet{ get; set; }
     public DbSet<SkinEntity> SkinSet { get; set;  }
     public DbSet<CharasteristicsEntity> CharacteristicSet { get; set; }
+    
     public DbSet<RuneEntity> RuneSet { get; set; }
     public DbSet<RunePageEntity> RunePageSet { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

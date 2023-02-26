@@ -56,7 +56,7 @@ namespace API_lol.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetChampionById(int id)
         {
             // _logger.LogInformation("Méthode GetById");
             // _logger.LogWarning("Ceci est un avertissement!");
@@ -79,7 +79,7 @@ namespace API_lol.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Post([FromBody] ChampionDTO champion)
+        public async Task<IActionResult> AddChampion([FromBody] ChampionDTO champion)
         {
             // try
             // {
@@ -92,7 +92,7 @@ namespace API_lol.Controllers
             var championResultDto = championResult.ToDTO();
             var truc = _dataManager.ChampionsMgr.GetById(championResultDto.Id);
 
-            return CreatedAtAction(nameof(GetById),
+            return CreatedAtAction(nameof(GetChampionById),
                 new { Id = championResultDto.Id, championResultDto }); //CreatedAtAction = Code 20
         }
 
@@ -125,7 +125,7 @@ namespace API_lol.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> PutNameChampion(int id, [FromBody] string newName)
+        public async Task<IActionResult> ModifyNameChampion(int id, [FromBody] string newName)
         {
             var leChampion = await _dataManager.ChampionsMgr.GetById(id);
             if (leChampion == null)
