@@ -26,7 +26,7 @@ public class ChampionEntity
     public string Image { get; set; }
     public string Class { get; set; }
     public ICollection<SkinEntity> Skins { get; set; } = new List<SkinEntity>();
-    public ICollection<CharasteristicsEntity> Characteristics { get; set; } = new List<CharasteristicsEntity>();
+    public ICollection<CharacteristicsEntity> Characteristics { get; set; } = new List<CharacteristicsEntity>();
     public ICollection<SkillEntity> Skills { get; set; } = new List<SkillEntity>();
 }
 

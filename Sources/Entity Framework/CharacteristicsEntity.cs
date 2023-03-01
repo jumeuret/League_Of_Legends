@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EntityFramework;
 
 [Table("Characteristics")]
-public class CharasteristicsEntity
+public class CharacteristicsEntity
 {
     [Key]
     public string Nom { get; set; }
