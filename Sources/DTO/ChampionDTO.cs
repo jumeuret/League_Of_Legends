@@ -1,4 +1,5 @@
-using System;
+<<<<<<< HEAD
+﻿using System;
 using System.Collections.Generic;
 using System;
 using System.Collections.Generic;
@@ -33,5 +34,6 @@ namespace DTO
             this.Class = Class;
             this.Icon = Icon;
         }
+
     }
 }
