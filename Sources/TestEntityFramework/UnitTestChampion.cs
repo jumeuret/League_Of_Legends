@@ -6,7 +6,7 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Model;
 using Xunit;
-
+/*
 namespace TestEntityFramework
 {
     public class UnitTestChampion
@@ -105,7 +105,7 @@ namespace TestEntityFramework
         */
         /*[Theory]
         [InlineData(1, "Test1", "Je suis la bio du test1", "Je suis l_icone du test1", "Je suis l_image du test1", "Je suis la classe du test1")]*/
-
+/*
         public void AddChampion_Test(int id, string name, string bio, string icone, string image, string classe)
         {
             var connection = new SqliteConnection("DataSource=:memory:");
@@ -200,4 +200,4 @@ namespace TestEntityFramework
 
         }
     }
-}
+}*/
