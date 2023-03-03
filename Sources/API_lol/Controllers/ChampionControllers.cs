@@ -83,7 +83,7 @@ namespace API_lol.Controllers
         {
             // try
             // {
-            var championModel = champion.ToChampion();
+            var championModel = champion.FromDTO();
             if (championModel == null)
             {
                 return NotFound();

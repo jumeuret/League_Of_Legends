@@ -24,5 +24,8 @@
     <Folder Include="Managers" />
     <Folder Include="Migrations" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="LeagueOfLegends.db" />
+  </ItemGroup>
 
 </Project>

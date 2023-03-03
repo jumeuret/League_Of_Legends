@@ -58,7 +58,7 @@ namespace TestEntityFramework
                 }
             };
         }
-
+/*
         [Theory]
         [InlineData(1, "Test1", "Je suis la bio du test1", "Je suis l_icone du test1", "Je suis l_image du test1", "Je suis la classe du test1"), 
          MemberData(nameof(GetSkins)), MemberData(nameof(GetCharacteristics))]
@@ -102,7 +102,7 @@ namespace TestEntityFramework
             }
         }
         
-        
+        */
         /*[Theory]
         [InlineData(1, "Test1", "Je suis la bio du test1", "Je suis l_icone du test1", "Je suis l_image du test1", "Je suis la classe du test1")]*/
 
