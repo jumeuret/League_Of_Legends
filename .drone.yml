@@ -61,6 +61,37 @@ steps:
         - master
     depends_on: [ build ]
 
+  # database container deployment
+  - name: deployment_docker_container
+    image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
+    environment:
+        IMAGENAME: mysql:latest
+        CONTAINERNAME: LeagueOfLegendsBox
+        COMMAND: create
+        # OVERWRITE: false
+        PRIVATE: true
+        CODEFIRST_CLIENTDRONE_ENV_MYSQL_ROOT_PASSWORD:
+          from_secret: db_root_password
+        CODEFIRST_CLIENTDRONE_ENV_MYSQL_DATABASE:
+          from_secret: db_database
+        CODEFIRST_CLIENTDRONE_ENV_MYSQL_USER:
+          from_secret: db_user
+        CODEFIRST_CLIENTDRONE_ENV_MYSQL_PASSWORD:
+          from_secret: db_password
+
+  # docker image build
+  - name: docker_build
+    image: plugins/docker
+    settings:
+       dockerfile: Sources/Dockerfile
+       context: Sources/
+       registry: hub.codefirst.iut.uca.fr
+       repo: hub.codefirst.iut.uca.fr/my.login/myRepository
+       username:
+         from_secret: SECRET_REGISTRY_USERNAME
+       password:
+         from_secret: SECRET_REGISTRY_PASSWORD
+
 volumes:
 - name: docs
   temp: {}
