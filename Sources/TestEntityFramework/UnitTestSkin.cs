@@ -7,7 +7,8 @@ namespace TestEntityFramework;
 
 public class UnitTestSkin
 {
-    /*[Theory]
+    /*
+    [Theory]
     [InlineData("Je suis la description de skin1", "Je suis l'icone de skin1", 11, "Je suis l'image de skin1", "Je suis le nom de skin1", 1.1)]
     [InlineData("Je suis la description de skin2", "Je suis l'icone de skin2", 12, "Je suis l'image de skin2", "Je suis le nom de skin2", 1.2)]
 
