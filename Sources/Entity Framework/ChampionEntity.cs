@@ -11,7 +11,7 @@ using Model;
 
 namespace Entity_Framework;
 
-[Table("Champion")]
+[Table("Champions")]
 public class ChampionEntity
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

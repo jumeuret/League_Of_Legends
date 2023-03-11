@@ -5,7 +5,7 @@ using Model;
 
 namespace EntityFramework.Migrations;
 
-[Table("Skin")]
+[Table("Skins")]
 public class SkinEntity
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -18,8 +18,6 @@ public class SkinEntity
     [Required]
     public float Price { get; set; }
     
-    public ChampionEntity ChampionEntity { get; set; }
-
     public override string ToString()
     {
         return $"{Id}: {Name} {Description}, {Icon} {Image}, {Price}";

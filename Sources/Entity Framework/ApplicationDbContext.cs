@@ -46,7 +46,6 @@ public class ApplicationDbContext : DbContext
         
         base.OnModelCreating(modelBuilder);
 
-        
         var champion1 = new ChampionEntity{Id = 1, Name = "Akali", Icon= "ff", Bio = "gg"};
         var champion2 = new ChampionEntity{Id = 3, Name = "Aatrox",Icon = "gg", Bio = "gg"};
         var champion3 = new ChampionEntity{Id = 4, Name = "Ahri", Icon= "ff", Bio = "gg"};
