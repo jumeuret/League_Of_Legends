@@ -10,16 +10,16 @@ namespace TestEntityFramework;
 public class UnitTestCharacteristic
 {
     [Theory]
-    [InlineData("Je suis le nom de caracteristique1", 1)]
-    [InlineData("Je suis le nom de caracteristique2", 2)]
+    [InlineData("Je suis le nom de caracteristique1", 1, 1)]
+    [InlineData("Je suis le nom de caracteristique2", 2, 2)]
 
-    public void AddCharacteristic_Test(string nom, int niveau)
+    public void AddCharacteristic_Test(string nom, int niveau, int nb)
     {
         var connection = new SqliteConnection("DataSource=:memory:");
         connection.Open();
             
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseSqlite(connection)
+            .UseInMemoryDatabase(databaseName: "AddCharacteristicDB")
             .Options;
 
         using (var context = new ApplicationDbContext(options))
@@ -41,9 +41,9 @@ public class UnitTestCharacteristic
         {
             context.Database.EnsureCreated();
                 
-            Assert.Equal(1, context.CharacteristicSet.Count());
-            Assert.Equal(nom, context.CharacteristicSet.First().Nom);
-            Assert.Equal(niveau, context.CharacteristicSet.First().Niveau);
+            Assert.Equal(nb, context.CharacteristicSet.Count());
+            Assert.Equal(nom, context.CharacteristicSet.Last().Nom);
+            Assert.Equal(niveau, context.CharacteristicSet.Last().Niveau);
                 
         }
     }
