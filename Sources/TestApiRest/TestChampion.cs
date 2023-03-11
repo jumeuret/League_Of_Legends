@@ -47,8 +47,8 @@ public class UnitTest1
         Assert.NotNull(objectResult);
         Assert.Equal(championsResult, objectResult);
     }
-    
-    /*[Fact]
+    /*
+    [Fact]
     public async void Test_GetChampion_ReturnAllChampions()
     {
         // Arrange 
@@ -60,12 +60,12 @@ public class UnitTest1
         var champions = objectResult?.Value as IEnumerable<ChampionDTO>;
 
         // Assert 
-        Assert.NotNull(champions);
         Assert.NotNull(objectResult);
-        Assert.Equal(champions.Count(), 6);
+        Assert.NotNull(champions);
+        Assert.Equal(6,champions.Count());
         
-    }*/
-
+    }
+    */
     /*[Fact]
     public async void Test_GetChampionReturnNotFoundResult()
     {

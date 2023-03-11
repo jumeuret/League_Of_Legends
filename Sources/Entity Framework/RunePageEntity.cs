@@ -12,6 +12,6 @@ namespace Entity_Framework
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<RuneEntity> Runes { get; set; } = new List<RuneEntity>();
+        public ICollection<RuneEntity> RuneSet { get; set; } = new List<RuneEntity>();
     }
 }
