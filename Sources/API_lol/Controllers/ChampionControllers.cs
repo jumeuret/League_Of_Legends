@@ -22,10 +22,10 @@ namespace API_lol.Controllers
         /// <param name="dataManager"></param>
         /// <param name="logger"></param>
         /// <param name="configuration"></param>
-        public ChampionControllers(IDataManager dataManager)
+        public ChampionControllers(IDataManager dataManager,  ILogger<ChampionControllers> logger)
         {
             _dataManager = dataManager;
-            // _logger = logger;
+            _logger = logger;
             // _configuration = configuration;
         }
 
@@ -76,24 +76,35 @@ namespace API_lol.Controllers
         /// <param name="champion"> le champion à inserrer</param>
         /// <response code="200">Le champion a bien été insérré</response>
         /// <response code="404">Valeur manquante ou non valide pour le champion</response>
+        /// <response code="500">Un problème s'est produit sur le serveur</response>
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> AddChampion([FromBody] ChampionDTO champion)
         {
-            // try
-            // {
-            var championModel = champion.ToChampion();
-            if (championModel == null)
+            try
             {
-                return NotFound();
-            }
-            var championResult = await _dataManager.ChampionsMgr.AddItem(championModel);
-            var championResultDto = championResult.ToDTO();
-            var truc = _dataManager.ChampionsMgr.GetById(championResultDto.Id);
+                var championModel = champion.ToChampion();
+                if (championModel == null)
+                {
+                     _logger.LogWarning("Le champion est incorrecte");
+                     return NotFound();
+                }
 
-            return CreatedAtAction(nameof(GetChampionById),
-                new { Id = championResultDto.Id, championResultDto }); //CreatedAtAction = Code 20
+                var championResult = await _dataManager.ChampionsMgr.AddItem(championModel);
+                var championResultDto = championResult.ToDTO();
+                var truc = _dataManager.ChampionsMgr.GetById(championResultDto.Id);
+
+                return CreatedAtAction(nameof(GetChampionById),
+                    new { Id = championResultDto.Id, championResultDto }); //CreatedAtAction = Code 20
+            }
+            catch (Exception e)
+            {
+                 _logger.LogError(e, "Une erreur s'est produite lors de l'ajout du champion");
+                 return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
         /// <summary>
@@ -102,18 +113,31 @@ namespace API_lol.Controllers
         /// <param name="id">l'identifiant du champion à supprimer</param>
         /// <response code="200">Le champion est supprimé</response>
         /// <response code="404">Valeur manquante ou non valide pour le champion</response>
+        /// <response code="500">Un problème s'est produit sur le serveur</response>
+
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteChampion(int id)
         {
-            var leChampion = await _dataManager.ChampionsMgr.GetById(id);
-            if (leChampion == null)
+            try
             {
-                return NotFound();
+                var leChampion = await _dataManager.ChampionsMgr.GetById(id);
+                if (leChampion == null)
+                {
+                    _logger.LogWarning($"Aucun champion n'a été trouvé avec cette identifiant {id}");
+                    return NotFound();
+                }
+                var championResult = await _dataManager.ChampionsMgr.DeleteItem(leChampion);
+                return Ok(championResult); // est sensé pas indiquer 200 si l'id n'existe pas
             }
-            var championResult = await _dataManager.ChampionsMgr.DeleteItem(leChampion);
-            return Ok(championResult); // est sensé pas indiquer 200 si l'id n'existe pas
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Une erreur s'est produite lors de la suppresion du champion");
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+          
         }
         /// <summary>
         /// Modification du nom du champion connu grâce à son l'id 
@@ -122,69 +146,36 @@ namespace API_lol.Controllers
         /// <param name="newName"> le nouveau nom du champion</param>
         /// <response code="200">Le champions a bien été modifié</response>
         /// <response code="404">Valeur manquante ou non valide pour le champion</response>
+        /// <response code="500">Un problème s'est produit sur le serveur</response>
+
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> ModifyNameChampion(int id, [FromBody] string newName)
         {
-            var leChampion = await _dataManager.ChampionsMgr.GetById(id);
-            if (leChampion == null)
+            try
             {
-                return NotFound();
+                var leChampion = await _dataManager.ChampionsMgr.GetById(id);
+                if (leChampion == null)
+                {
+                    _logger.LogWarning($"Aucun champion n'a été trouvé avec cet identifiant {id}");
+                    return NotFound();
+                }
+
+                var newChampion = new Champion(leChampion.Id, newName, leChampion.Class, leChampion.Icon,
+                    leChampion.Image.Base64, leChampion.Bio);
+                leChampion = await _dataManager.ChampionsMgr.UpdateItem(leChampion, newChampion);
+                var championResultDto = leChampion.ToDTO();
+                return Ok(championResultDto);
             }
-            var newChampion = new Champion(leChampion.Id, newName, leChampion.Class, leChampion.Icon,
-                leChampion.Image.Base64, leChampion.Bio);
-            leChampion = await _dataManager.ChampionsMgr.UpdateItem(leChampion, newChampion);
-            var championResultDto = leChampion.ToDTO();
-            return Ok(championResultDto); 
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Une erreur s'est produite lors de la modification du nom du champion");
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }
-
-/*  [HttpGet("{string:Name}")]
-  public async Task<IActionResult> GetByName(string Name)
-  {
-      var stub = new StubData();
-      List<Champion> champions = new List<Champion>();
-
-      var champion = await stub.ChampionsMgr.GetItemsByCharacteristic(Name, 1, 1);
-      var dto = new ChampionDTO();
-      dto.AddRange(champions);
-      ChampionDTO dto = await champions;
-
-      return Ok(dto);
-  }
-
-/*  [HttpDelete]
-  public async Task<IActionResult> Delete()
-  {
-      var stub = new StubData();
-
-      */ /*var dto = new ChampionDTO();*/ /*
-                    var champions = await stub.ChampionsMgr
-                   ;
-                    return Ok(champions);
-                }*/
-
-
-    // des exemples
-
-    // POST api/<ChampionController>
-    /*[HttpPost]
-    public void Post([FromBody] string value)
-    {
-    }
-
-    // PUT api/<ChampionController>/5
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
-    {
-    }
-
-    // DELETE api/<ChampionController>/5
-    [HttpDelete("{id}")]
-    public void Delete(int id)
-    {
-    }*/
 
 
