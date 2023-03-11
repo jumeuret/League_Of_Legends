@@ -12,7 +12,7 @@ public class UnitTest1
     [Fact]
     public void Test_ContructeurDTOValideName()
     {
-        ChampionDTO championDto = new ChampionDTO(1, "Ivern", "test bio", "test icon");
+        ChampionDTO championDto = new ChampionDTO(1, "Ivern", "test bio", "test class", "test icon", "test image");
         Assert.NotNull(championDto);
         Assert.Equal("Ivern", championDto.Name);
     }
@@ -20,7 +20,7 @@ public class UnitTest1
     [Fact]
     public void Test_ContructeurDTOValideBio()
     {
-        ChampionDTO championDto = new ChampionDTO(1,"Ivern", "test bio", "test icon");
+        ChampionDTO championDto = new ChampionDTO(1,"Ivern", "test bio", "test class", "test icon", "test image");
         Assert.NotNull(championDto);
         Assert.Equal("test bio", championDto.Bio);
     }
@@ -28,7 +28,7 @@ public class UnitTest1
     [Fact]
     public void Test_ContructeurDTOValideIcon()
     {
-        ChampionDTO championDto = new ChampionDTO(1,"Ivern", "test bio", "test icon");
+        ChampionDTO championDto = new ChampionDTO(1,"Ivern", "test bio", "test class", "test icon", "test image");
         Assert.NotNull(championDto);
         Assert.Equal("test icon", championDto.Icon);
     }

@@ -138,7 +138,7 @@ namespace API_lol.Controllers
             {
                 return NotFound();
             }
-            var newChampion = new Champion(leChampion.Id, newName, leChampion.Class, leChampion.Icon,
+            var newChampion = new Champion(newName, leChampion.Class, leChampion.Icon,
                 leChampion.Image.Base64, leChampion.Bio);
             leChampion = await _dataManager.ChampionsMgr.UpdateItem(leChampion, newChampion);
             var championResultDto = leChampion.ToDTO();
