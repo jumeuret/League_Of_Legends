@@ -27,7 +27,7 @@ public class ChampionEntityWithStub : ApplicationDbContext
             new { Id = 4, ChampionId = 1, Name = "jj", Description = "truc", Price = (float)11.5 },
             new { Id = 5, ChampionId = 1, Name = "ll", Description = "truc", Price = (float)11.5 }
         );
-        modelBuilder.Entity<ChampionEntity>().HasMany(c => c.Skins).WithOne(s => s.ChampionEntity);
+        // modelBuilder.Entity<ChampionEntity>().HasMany(c => c.Skins).WithOne(s => s.ChampionEntity);
         
         base.SaveChanges();
     }
