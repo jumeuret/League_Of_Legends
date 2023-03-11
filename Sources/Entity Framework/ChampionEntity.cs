@@ -1,15 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EntityFramework;
 using EntityFramework.Migrations;
 using Model;
 
 namespace Entity_Framework;
+
 
 [Table("Champion")]
 public class ChampionEntity
@@ -24,5 +27,7 @@ public class ChampionEntity
     public string Image { get; set; }
     public string Class { get; set; }
     public ICollection<SkinEntity> Skins { get; set; } = new List<SkinEntity>();
+    public ICollection<CharacteristicsEntity> Characteristics { get; set; } = new List<CharacteristicsEntity>();
+    public ICollection<SkillEntity> Skills { get; set; } = new List<SkillEntity>();
 }
 
