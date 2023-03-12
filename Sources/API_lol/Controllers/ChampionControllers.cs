@@ -22,10 +22,10 @@ namespace API_lol.Controllers
         /// <param name="dataManager"></param>
         /// <param name="logger"></param>
         /// <param name="configuration"></param>
-        public ChampionControllers(IDataManager dataManager, ILogger<ChampionControllers> logger)
+        public ChampionControllers(IDataManager dataManager)
         {
             _dataManager = dataManager;
-            _logger = logger;
+            // _logger = logger;
             // _configuration = configuration;
         }
 

@@ -18,6 +18,6 @@ namespace Entity_Framework
         public string Icon { get; set; }
         public string Image { get; set; }
         public string Categorie { get; set; }
-        public ICollection<RunePageEntity> RunePageSet { get; set; } = new List<RunePageEntity>();
+        public ICollection<RunePageEntity> RunePages { get; set; } = new List<RunePageEntity>();
     }
 }

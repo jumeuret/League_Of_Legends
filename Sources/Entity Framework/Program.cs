@@ -37,7 +37,7 @@ namespace Entity_Framework
                 );
                 context.SaveChangesAsync();
                 
-                context.RunePageSet.AddRange(new RunePageEntity
+                context.RunePageSet.AddRange(new RunePageEntity()
                     {
                         Name = "Test1",
                     },
