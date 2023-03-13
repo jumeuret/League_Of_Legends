@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Entity_Framework;
 using Model;
 
-namespace EntityFramework.Migrations;
+namespace Entity_Framework;
 
 [Table("Skin")]
 public class SkinEntity

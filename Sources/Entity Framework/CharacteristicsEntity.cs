@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Entity_Framework;
 
-namespace EntityFramework;
+namespace Entity_Framework;
 
 [Table("Characteristics")]
 public class CharacteristicsEntity

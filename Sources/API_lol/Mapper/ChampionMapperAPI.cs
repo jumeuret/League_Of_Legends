@@ -1,3 +1,7 @@
+using System.Reflection.PortableExecutable;
+using Entity_Framework;
+using EntityFramework.Migrations;
+
 namespace API_lol.Mapper
 {
     using Model;
@@ -6,7 +10,7 @@ namespace API_lol.Mapper
     {
 
         // Transformer un champion en champion DTO 
-        // ex enlever le mot de pass pour pas que le client le récupère
+        // ex enlever le mot de passe pour que le client ne le récupère pas
         public static ChampionDTO ToDTO(this Champion champion)
         {
             var championDTO = new ChampionDTO(0, champion.Name, champion.Bio, champion.Class.ToString(), champion.Icon, champion.Image.ToString());
@@ -15,8 +19,7 @@ namespace API_lol.Mapper
 
         public static Champion FromDTO(this ChampionDTO champDTO)
         {
-            var champion = new Champion(champDTO.Name, ChampionClass.Assassin, champDTO.Icon, champDTO.Image,
-                champDTO.Bio);
+            var champion = new Champion(champDTO.Name, (ChampionClass)Enum.Parse(typeof(ChampionClass), champDTO.Class), champDTO.Icon, champDTO.Image, champDTO.Bio);
             return champion;
         }
     }
