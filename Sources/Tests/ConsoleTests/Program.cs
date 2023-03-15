@@ -185,7 +185,7 @@ namespace ConsoleTests
 						string name = ReadAString("Please enter the champion name:");
 						ChampionClass championClass = ReadAnEnum<ChampionClass>($"Please enter the champion class (possible values are: {Enum.GetNames<ChampionClass>().Aggregate("", (name, chaine) => $"{chaine} {name}")}):");
 						string bio = ReadAString("Please enter the champion bio:");
-						Champion champion = new Champion(1, name, championClass, bio: bio);
+						Champion champion = new Champion(name, championClass, bio: bio);
 						DisplayCreationChampionMenu(champion);
 						_ = await dataManager.ChampionsMgr.AddItem(champion);
 					}	
@@ -217,7 +217,7 @@ namespace ConsoleTests
 						if(champName == "Cancel") break;
 						ChampionClass championClass = ReadAnEnum<ChampionClass>($"Please enter the champion class (possible values are: {Enum.GetNames<ChampionClass>().Aggregate("", (name, chaine) => $"{chaine} {name}")}):");
 						string bio = ReadAString("Please enter the champion bio:");
-						Champion champion = new Champion(1, champName, championClass, bio: bio);
+						Champion champion = new Champion(champName, championClass, bio: bio);
 						DisplayCreationChampionMenu(champion);
 						await dataManager.ChampionsMgr.UpdateItem(somechampions.Single(c => c!.Name == champName), champion);
 					}	

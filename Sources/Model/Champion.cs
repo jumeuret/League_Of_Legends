@@ -42,11 +42,9 @@ public class Champion : IEquatable<Champion>
 
     public LargeImage Image { get; set; }
     
-    public int Id { get; set; }
 
-    public Champion(int id ,string name, ChampionClass champClass = ChampionClass.Unknown, string icon = "", string image = "", string bio = "")
+    public Champion(string name, ChampionClass champClass = ChampionClass.Unknown, string icon = "", string image = "", string bio = "")
     {
-        Id = id;
         Name = name;
         Class = champClass;
         Icon = icon;

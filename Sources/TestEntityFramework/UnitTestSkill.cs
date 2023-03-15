@@ -8,16 +8,16 @@ public class UnitTestSkill
 {
     
     [Theory]
-    [InlineData("Je suis la description de skill1", 111, "Je suis le nom de skill1", "Je suis le type de skill1")]
-    [InlineData("Je suis la description de skill2", 112, "Je suis le nom de skill2", "Je suis le type de skill2")]
+    [InlineData("Je suis la description de skill1", 111, "Je suis le nom de skill1", "Je suis le type de skill1", 1)]
+    [InlineData("Je suis la description de skill2", 112, "Je suis le nom de skill2", "Je suis le type de skill2", 2)]
 
-    public void AddSkill_Test(string description, int id, string name, string type)
+    public void AddSkill_Test(string description, int id, string name, string type, int nb)
     {
         var connection = new SqliteConnection("DataSource=:memory:");
         connection.Open();
             
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseSqlite(connection)
+            .UseInMemoryDatabase(databaseName: "AddSkillDB")
             .Options;
 
         using (var context = new ApplicationDbContext(options))
@@ -41,11 +41,11 @@ public class UnitTestSkill
         {
             context.Database.EnsureCreated();
                 
-            Assert.Equal(1, context.SkillSet.Count());
-            Assert.Equal(description, context.SkillSet.First().Description);
-            Assert.Equal(id, context.SkillSet.First().Id);
-            Assert.Equal(name, context.SkillSet.First().Name);
-            Assert.Equal(type, context.SkillSet.First().Type);
+            Assert.Equal(nb, context.SkillSet.Count());
+            Assert.Equal(description, context.SkillSet.Last().Description);
+            Assert.Equal(id, context.SkillSet.Last().Id);
+            Assert.Equal(name, context.SkillSet.Last().Name);
+            Assert.Equal(type, context.SkillSet.Last().Type);
                 
         }
     }
