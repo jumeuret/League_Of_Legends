@@ -1,14 +1,10 @@
-﻿using System.Reflection.PortableExecutable;
-using EntityFramework.Migrations;
+﻿using Model;
 
 namespace Entity_Framework.Mapper;
 
-using Model;
-using EntityFramework;
-
-public static class ChampionMapperET
+public static class ChampionMapper
 {
-    public static ChampionEntity ToEntity(this Champion champion)
+    public static ChampionEntity ToChampionEntity(this Champion champion)
     {
         var championEntity = new ChampionEntity()
         {
@@ -57,7 +53,7 @@ public static class ChampionMapperET
         return championEntity;
     }
 
-    public static Champion FromEntity(this ChampionEntity champEntity)
+    public static Champion ToChampion(this ChampionEntity champEntity)
     {
         var champion = new Champion(champEntity.Name, (ChampionClass)Enum.Parse(typeof(ChampionClass), champEntity.Class), champEntity.Icon, champEntity.Image, champEntity.Bio);
         

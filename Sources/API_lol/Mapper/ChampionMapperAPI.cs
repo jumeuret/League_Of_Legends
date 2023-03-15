@@ -1,7 +1,3 @@
-using System.Reflection.PortableExecutable;
-using Entity_Framework;
-using EntityFramework.Migrations;
-
 namespace API_lol.Mapper
 {
     using Model;
