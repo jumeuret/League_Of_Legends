@@ -67,21 +67,20 @@ public static class ChampionMapperET
             skins.Add(new Skin(skin.Name, champion, skin.Price, skin.Icon, skin.Image, skin.Description));
         }
         
-        List<Skill> skills = new List<Skill>();
         foreach (SkillEntity skill in champEntity.Skills)
         {
-            skills.Add(new Skill(skill.Name, (SkillType)Enum.Parse(typeof(SkillType), skill.Type), skill.Description));
+            champion.AddSkill(new Skill(skill.Name, (SkillType)Enum.Parse(typeof(SkillType), skill.Type), skill.Description));
         }
         
-        List<Characteristics> characteristics = new List<Characteristics>();
+        Tuple<string, int>[] characteristics;
         foreach (CharacteristicsEntity characteristic in champEntity.Characteristics)
         {
-            characteristics.Add(new Dictionary<string, int>(characteristic.Nom, characteristic.Niveau));
+            champion.AddCharacteristics(new Tuple<string, int>(characteristic.Nom, characteristic.Niveau));
         }
 
-        champion.AddSkin(skins);
-        
-        
+        // Manquant (Pb internal)
+        //champion.AddSkin(skins);
+
         return champion;
     }
 }
