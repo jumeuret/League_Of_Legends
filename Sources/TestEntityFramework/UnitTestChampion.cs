@@ -60,34 +60,40 @@ namespace TestEntityFramework
         }
 
         [Theory]
-        [InlineData(1, "Test1", "Je suis la bio du test1", "Je suis l_icone du test1", "Je suis l_image du test1", "Je suis la classe du test1", 1)]
-        [InlineData(2, "Test2", "Je suis la bio du test2", "Je suis l_icone du test2", "Je suis l_image du test2", "Je suis la classe du test2", 2)]
+        [InlineData(1, "Test1", "Je suis la bio du test1", "Je suis l_icone du test1", "Je suis l_image du test1", "Je suis la classe du test1", "Test2", "Je suis la bio du test2", "Je suis l_icone du test2", "Je suis l_image du test2", "Je suis la classe du test2", 1)]
+        [InlineData(3, "Test3", "Je suis la bio du test3", "Je suis l_icone du test3", "Je suis l_image du test3", "Je suis la classe du test3", "Test4", "Je suis la bio du test4", "Je suis l_icone du test4", "Je suis l_image du test4", "Je suis la classe du test4", 2)]
         
-        public void ModifyChampion_Test(int id, string name, string bio, string icone, string image, string classe, int nb)
+        public void ModifyChampion_Test(int old_id, string old_name, string old_bio, string old_icone, string old_image, string old_classe, string new_name, string new_bio, string new_icone, string new_image, string new_classe, int nb)
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
             
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "AddChampionDB")
+                .UseInMemoryDatabase(databaseName: "ModifyChampionDB")
                 .Options;
 
             using (var context = new ApplicationDbContext(options))
             {
                 context.Database.EnsureCreated();
 
-                ChampionEntity champion = new ChampionEntity()
+                ChampionEntity old_champion = new ChampionEntity()
                 {
-                    Id = id,
-                    Name = name,
-                    Bio = bio,
-                    Icon = icone,
-                    Image = image,
-                    Class = classe,
+                    Id =  old_id,
+                    Name =  old_name,
+                    Bio = old_bio,
+                    Icon =  old_icone,
+                    Image =  old_image,
+                    Class =  old_classe,
                 };
                 
-                context.ChampionSet.Add(champion);
+                context.ChampionSet.Add(old_champion);
+                
+                context.SaveChanges();
 
+                context.ChampionSet.Last().Bio = new_bio;
+                
+                context.ChampionSet.Update(old_champion);
+                
                 context.SaveChanges();
             }
 
@@ -96,12 +102,14 @@ namespace TestEntityFramework
                 context.Database.EnsureCreated();
                 
                 Assert.Equal(nb, context.ChampionSet.Count());
-                Assert.Equal(id, context.ChampionSet.Last().Id);
+                Assert.NotEqual(old_bio, context.ChampionSet.Last().Bio);;
+                Assert.Equal(new_bio, context.ChampionSet.Last().Bio);
+                /*
+                /*Assert.Equal(id, context.ChampionSet.Last().Id);
                 Assert.Equal(name, context.ChampionSet.Last().Name);
-                Assert.Equal(bio, context.ChampionSet.Last().Bio);
                 Assert.Equal(icone, context.ChampionSet.Last().Icon);
                 Assert.Equal(image, context.ChampionSet.Last().Image);
-                Assert.Equal(classe, context.ChampionSet.Last().Class);
+                Assert.Equal(classe, context.ChampionSet.Last().Class);*/
             }
         }
         
