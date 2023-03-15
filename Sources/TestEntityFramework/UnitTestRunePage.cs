@@ -7,32 +7,32 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TestEntityFramework;
 
-public class UnitTestCharacteristic
+public class UnitTestRunePage
 {
     [Theory]
-    [InlineData("Je suis le nom de caracteristique1", 1, 1)]
-    [InlineData("Je suis le nom de caracteristique2", 2, 2)]
+    [InlineData(1, "Je suis le nom de runePage1", 1)]
+    [InlineData(2, "Je suis le nom de runePage2", 2)]
 
-    public void AddCharacteristic_Test(string nom, int niveau, int nb)
+    public void AddCharacteristic_Test(int id, string nom, int nb)
     {
         var connection = new SqliteConnection("DataSource=:memory:");
         connection.Open();
             
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseInMemoryDatabase(databaseName: "AddCharacteristicDB")
+            .UseInMemoryDatabase(databaseName: "AddRunePageDB")
             .Options;
 
         using (var context = new ApplicationDbContext(options))
         {
             context.Database.EnsureCreated();
 
-            CharacteristicsEntity characteristic = new CharacteristicsEntity
+            RunePageEntity runePage = new RunePageEntity()
             {
-                Nom = nom,
-                Niveau = niveau
+                Id = id,
+                Name = nom,
             };
                     
-            context.CharacteristicSet.Add(characteristic);
+            context.RunePageSet.Add(runePage);
 
             context.SaveChanges();
         }
@@ -41,9 +41,9 @@ public class UnitTestCharacteristic
         {
             context.Database.EnsureCreated();
                 
-            Assert.Equal(nb, context.CharacteristicSet.Count());
-            Assert.Equal(nom, context.CharacteristicSet.Last().Nom);
-            Assert.Equal(niveau, context.CharacteristicSet.Last().Niveau);
+            Assert.Equal(nb, context.RunePageSet.Count());
+            Assert.Equal(id, context.RunePageSet.Last().Id);
+            Assert.Equal(nom, context.RunePageSet.Last().Name);
                 
         }
     }

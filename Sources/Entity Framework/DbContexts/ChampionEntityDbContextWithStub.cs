@@ -1,10 +1,10 @@
-﻿using EntityFramework.Migrations;
+﻿using EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Model;
 
 namespace Entity_Framework;
 
-public class ChampionEntityWithStub 
+public class ChampionEntityWithStub : ApplicationDbContext
 {
     // protected override void OnModelCreating(ModelBuilder modelBuilder)
     // {
@@ -31,4 +31,5 @@ public class ChampionEntityWithStub
     //     
     //     base.SaveChanges();
     //}
-}  
+}
+   

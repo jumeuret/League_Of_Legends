@@ -14,7 +14,7 @@ public class UnitTest1
     [Fact]
     public void Test_ContructeurDTOValideName()
     {
-        ChampionDTO championDto = new ChampionDTO(1, "Ivern", "test bio", "test icon");
+        ChampionDTO championDto = new ChampionDTO(1, "Ivern", "test bio", "test class", "test icon", "test image");
         Assert.NotNull(championDto);
         Assert.Equal("Ivern", championDto.Name);
     }
@@ -22,7 +22,7 @@ public class UnitTest1
     [Fact]
     public void Test_ContructeurDTOValideBio()
     {
-        ChampionDTO championDto = new ChampionDTO(1,"Ivern", "test bio", "test icon");
+        ChampionDTO championDto = new ChampionDTO(1,"Ivern", "test bio", "test class", "test icon", "test image");
         Assert.NotNull(championDto);
         Assert.Equal("test bio", championDto.Bio);
     }
@@ -30,7 +30,7 @@ public class UnitTest1
     [Fact]
     public void Test_ContructeurDTOValideIcon()
     {
-        ChampionDTO championDto = new ChampionDTO(1,"Ivern", "test bio", "test icon");
+        ChampionDTO championDto = new ChampionDTO(1,"Ivern", "test bio", "test class", "test icon", "test image");
         Assert.NotNull(championDto);
         Assert.Equal("test icon", championDto.Icon);
     }
@@ -49,8 +49,8 @@ public class UnitTest1
         Assert.NotNull(objectResult);
         Assert.Equal(championsResult, objectResult);
     }
-    
-    /*[Fact]
+    /*
+    [Fact]
     public async void Test_GetChampion_ReturnAllChampions()
     {
         // Arrange 
@@ -62,12 +62,12 @@ public class UnitTest1
         var champions = objectResult?.Value as IEnumerable<ChampionDTO>;
 
         // Assert 
-        Assert.NotNull(champions);
         Assert.NotNull(objectResult);
-        Assert.Equal(champions.Count(), 6);
+        Assert.NotNull(champions);
+        Assert.Equal(6,champions.Count());
         
-    }*/
-
+    }
+    */
     /*[Fact]
     public async void Test_GetChampionReturnNotFoundResult()
     {
