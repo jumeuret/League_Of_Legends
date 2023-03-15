@@ -63,11 +63,11 @@ public class ChampionManager : IGenericDataManager<Champion>
          {
              var championEntity = item.ToChampionEntity();
              var champion = context.ChampionSet.Remove(championEntity).Entity;
-             if (champion !=null)
+             if (champion == championEntity)
              {
-                 return Task.FromResult(false);
+                 return Task.FromResult(true);
              }
-             return Task.FromResult(true);
+             return Task.FromResult(false);
          }
     }
 }
