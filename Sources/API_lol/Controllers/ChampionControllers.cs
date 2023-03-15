@@ -29,22 +29,28 @@ namespace API_lol.Controllers
             // _configuration = configuration;
         }
 
-        /// <summary>
-        ///  Récupération de la liste des champions
-        /// </summary>
-        /// <response code="200">Les champions ont été récupérés</response>
-        /// <response code="404">Valeur manquante ou non valide pour le champion</response>
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PageDTO<IEnumerable<ChampionDTO>>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetChampions()
+        public async Task<IActionResult> GetChampions([FromQuery] int index = 0, int count = 10)
         {
+            if (count > 50)
+            {
+                _logger.LogWarning($"Method GetChampions call with {count} (which is too large)");
+                count = 5;
+            }
             var lesChampions =
-                await _dataManager.ChampionsMgr.GetItems(0, await _dataManager.ChampionsMgr.GetNbItems());
+                await _dataManager.ChampionsMgr.GetItems(index, count);
 
-            var lesChampionsDto = lesChampions.Select(champion => champion?.ToDTO());
+            PageDTO<IEnumerable<ChampionDTO>> page = new PageDTO<IEnumerable<ChampionDTO>>
+            {
+                Data = lesChampions.Select(champion => champion?.ToDTO()),
+                Index = index,
+                Count = count,
+                TotalCount = await _dataManager.ChampionsMgr.GetNbItems()
+            };
 
-            return Ok(lesChampionsDto); // les retours API doivent être des DTO
+            return Ok(page); // les retours API doivent être des DTO
         }
 
         /// <summary>
@@ -86,8 +92,7 @@ namespace API_lol.Controllers
         {
             try
             {
-                var championModel = champion.ToChampion();
-                if (championModel == null)
+                var championModel = champion.FromDTO();                if (championModel == null)
                 {
                      _logger.LogWarning("Le champion est incorrecte");
                      return NotFound();
@@ -96,7 +101,7 @@ namespace API_lol.Controllers
                 var championResult = await _dataManager.ChampionsMgr.AddItem(championModel);
                 var championResultDto = championResult.ToDTO();
                 var truc = _dataManager.ChampionsMgr.GetById(championResultDto.Id);
-
+          
                 return CreatedAtAction(nameof(GetChampionById),
                     new { Id = championResultDto.Id, championResultDto }); //CreatedAtAction = Code 20
             }

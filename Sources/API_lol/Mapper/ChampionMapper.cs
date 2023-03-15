@@ -13,15 +13,14 @@ namespace API_lol.Mapper
             return championDTO;
         }
 
-        public static Champion ToChampion(this ChampionDTO champDto)
+        public static Champion FromDTO(this ChampionDTO champDTO)
         {
-            var champion = new Champion(champDto.Id, champDto.Name, ChampionClass.Assassin)
+            var champion = new Champion(champDTO.Id, champDTO.Name, ChampionClass.Assassin)
             {
-                Bio = champDto.Bio,
-                Icon = champDto.Icon,
+                Bio = champDTO.Bio,
+                Icon = champDTO.Icon,
             };
             return champion;
         }
     }
 }
-

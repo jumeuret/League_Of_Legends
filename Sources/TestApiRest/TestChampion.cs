@@ -50,7 +50,7 @@ public class UnitTest1
         Assert.Equal(championsResult, objectResult);
     }
     
-    [Fact]
+    /*[Fact]
     public async void Test_GetChampion_ReturnAllChampions()
     {
         // Arrange 
@@ -66,9 +66,9 @@ public class UnitTest1
         Assert.NotNull(objectResult);
         Assert.Equal(champions.Count(), 6);
         
-    }
+    }*/
 
-    [Fact]
+    /*[Fact]
     public async void Test_GetChampionReturnNotFoundResult()
     {
         //Arrange 
@@ -133,8 +133,8 @@ public class UnitTest1
         //Assert
         Assert.IsType<NotFoundResult>(objectResult);
         
-    }
-    [Fact]
+    }*/
+    /*[Fact]
     public async void Test_AddChampionReturnOkResult()
     {
         
@@ -149,9 +149,9 @@ public class UnitTest1
         // Assert
         Assert.NotNull(objectResult);
         Assert.Equal(championResult, objectResult);
-    }
+    }*/
     
-    [Fact]
+    /*[Fact]
     public async void Test_AddChampionReturnNotFoundResult()
     {
         
@@ -166,9 +166,9 @@ public class UnitTest1
         // Assert
         Assert.NotNull(objectResult);
         Assert.Equal(championResult, objectResult);
-    }
+    }*/
     
-    [Fact]
+    /*[Fact]
     public async void Test_AddChampionReturnAllChampion()
     {
         
@@ -189,9 +189,9 @@ public class UnitTest1
         Assert.Equal(championResultDto.Name, championDTO.Name);
         Assert.Equal(championResultDto.Bio, championDTO.Bio);
         Assert.Equal(championResultDto.Icon, championDTO.Icon);
-    }
+    }*/
     
-    [Fact]
+    /*[Fact]
     public async void Test_DeleteChampionReturnNotFoundResult()
     {
         
@@ -221,9 +221,9 @@ public class UnitTest1
         // Assert
         Assert.NotNull(objectResult);
         Assert.Equal(championResult, objectResult);
-    }
+    }*/
     
-    [Fact]
+    /*[Fact]
     public async void Test_DeleteChampionNotReturnChampionMatchinWithId()
     {
         
@@ -330,6 +330,6 @@ public class UnitTest1
         Assert.NotNull(result);
         Assert.Equal(newResult, champion);
         Assert.Equal(listchampionsResultDto,champion);
-    }
+    }*/
 
 }

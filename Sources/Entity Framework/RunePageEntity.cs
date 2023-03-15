@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entity_Framework
 {
-    [Table("RunePages")]
+    [Table("RunePage")]
     public class RunePageEntity
     {
         public int Id { get; set; }

@@ -4,10 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EntityFramework;
 
 [Table("Characteristics")]
-public class CharasteristicsEntity
+public class CharacteristicsEntity
 {
     [Key]
-    public string nom { get; set; }
-    [Required]
-    public int niveau { get; set; }
+    public string Nom { get; set; }
+    public int Niveau { get; set; }
 }
