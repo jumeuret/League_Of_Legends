@@ -7,9 +7,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EntityFramework;
-using EntityFramework.Migrations;
-using Model;
 
 namespace Entity_Framework;
 

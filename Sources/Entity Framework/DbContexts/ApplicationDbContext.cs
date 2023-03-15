@@ -1,6 +1,4 @@
-﻿using EntityFramework;
-using EntityFramework.Migrations;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Entity_Framework;
 

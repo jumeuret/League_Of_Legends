@@ -22,7 +22,7 @@ namespace API_lol.Controllers
         /// <param name="dataManager"></param>
         /// <param name="logger"></param>
         /// <param name="configuration"></param>
-        public ChampionControllers(IDataManager dataManager,  ILogger<ChampionControllers> logger)
+        public ChampionControllers(IDataManager dataManager, ILogger<ChampionControllers> logger)
         {
             _dataManager = dataManager;
             _logger = logger;
@@ -39,6 +39,7 @@ namespace API_lol.Controllers
                 _logger.LogWarning($"Method GetChampions call with {count} (which is too large)");
                 count = 5;
             }
+
             var lesChampions =
                 await _dataManager.ChampionsMgr.GetItems(index, count);
 
@@ -72,6 +73,7 @@ namespace API_lol.Controllers
             {
                 return NotFound();
             }
+
             var leChampionDto = leChampion.ToDTO();
             return Ok(leChampionDto);
         }
@@ -92,23 +94,24 @@ namespace API_lol.Controllers
         {
             try
             {
-                var championModel = champion.FromDTO();                if (championModel == null)
+                var championModel = champion.FromDTO();
+                if (championModel == null)
                 {
-                     _logger.LogWarning("Le champion est incorrecte");
-                     return NotFound();
+                    _logger.LogWarning("Le champion est incorrecte");
+                    return NotFound();
                 }
 
                 var championResult = await _dataManager.ChampionsMgr.AddItem(championModel);
                 var championResultDto = championResult.ToDTO();
                 var truc = _dataManager.ChampionsMgr.GetById(championResultDto.Id);
-          
+
                 return CreatedAtAction(nameof(GetChampionById),
                     new { Id = championResultDto.Id, championResultDto }); //CreatedAtAction = Code 20
             }
             catch (Exception e)
             {
-                 _logger.LogError(e, "Une erreur s'est produite lors de l'ajout du champion");
-                 return StatusCode(StatusCodes.Status500InternalServerError);
+                _logger.LogError(e, "Une erreur s'est produite lors de l'ajout du champion");
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
@@ -134,6 +137,7 @@ namespace API_lol.Controllers
                     _logger.LogWarning($"Aucun champion n'a été trouvé avec cette identifiant {id}");
                     return NotFound();
                 }
+
                 var championResult = await _dataManager.ChampionsMgr.DeleteItem(leChampion);
                 return Ok(championResult); // est sensé pas indiquer 200 si l'id n'existe pas
             }
@@ -142,8 +146,9 @@ namespace API_lol.Controllers
                 _logger.LogError(e, "Une erreur s'est produite lors de la suppresion du champion");
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
-          
+
         }
+
         /// <summary>
         /// Modification du nom du champion connu grâce à son l'id 
         /// </summary>
@@ -168,7 +173,7 @@ namespace API_lol.Controllers
                     return NotFound();
                 }
 
-                var newChampion = new Champion(leChampion.Id, newName, leChampion.Class, leChampion.Icon,
+                var newChampion = new Champion(newName, leChampion.Class, leChampion.Icon,
                     leChampion.Image.Base64, leChampion.Bio);
                 leChampion = await _dataManager.ChampionsMgr.UpdateItem(leChampion, newChampion);
                 var championResultDto = leChampion.ToDTO();
@@ -181,17 +186,6 @@ namespace API_lol.Controllers
             }
         }
     }
-
-    // PUT api/<ChampionController>/5
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
-    {
-    }
-
-    // DELETE api/<ChampionController>/5
-    [HttpDelete("{id}")]
-    public void Delete(int id)
-    {
-    }*/
+}
 
 
