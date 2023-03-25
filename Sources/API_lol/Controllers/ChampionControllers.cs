@@ -77,6 +77,19 @@ namespace API_lol.Controllers
             var leChampionDto = leChampion.ToDTO();
             return Ok(leChampionDto);
         }
+        
+        //getNbChampions()
+        /// <summary>
+        /// Comptage du nombre de champions 
+        /// </summary>
+        /// <response code="200">Le champion nombre de champion (0 minimum)</response>
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
+        public async Task<IActionResult> GtNumberOfChampions()
+        {
+            var nombreChampion = await _dataManager.ChampionsMgr.GetNbItems();
+            return Ok(nombreChampion);
+        }
 
         /// <summary>
         /// Insertion d'un champion
@@ -185,6 +198,8 @@ namespace API_lol.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+        
+        
     }
 }
 
