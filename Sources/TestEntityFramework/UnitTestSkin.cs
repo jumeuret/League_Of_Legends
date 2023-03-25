@@ -1,5 +1,4 @@
 ﻿using Entity_Framework;
-using EntityFramework.Migrations;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 

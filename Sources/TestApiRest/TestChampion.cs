@@ -1,6 +1,7 @@
 using API_lol.Controllers;
 using DTO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Model;
 using StubLib;
 
@@ -8,6 +9,7 @@ namespace TestApiRest;
 
 public class TestChampion
 {
+    private readonly ILogger<ChampionControllers> _logger;
 
     [Fact]
     public void Test_ContructeurDTOValideName()
@@ -37,7 +39,7 @@ public class TestChampion
     public async void Test_GetChampion_ReturnOkResult()
     {
         // Arrange 
-        var  championController = new ChampionControllers(new StubData());
+        var  championController = new ChampionControllers(new StubData(), _logger);
         
         // Act 
         var championsResult = await championController.GetChampions();
@@ -52,7 +54,7 @@ public class TestChampion
     public async void Test_GetChampion_ReturnAllChampions()
     {
         // Arrange 
-        var  championController = new ChampionControllers(new StubData());
+        var  championController = new ChampionControllers(new StubData(), _logger);
         
         // Act 
         var championsResult = await championController.GetChampions();
@@ -70,7 +72,7 @@ public class TestChampion
     public async void Test_GetChampionReturnNotFoundResult()
     {
         //Arrange 
-        var championController = new ChampionControllers(new StubData());
+        var championController = new ChampionControllers(new StubData(), _logger);
         
         // Act
         var championsResult = await championController.GetChampions();
@@ -85,7 +87,7 @@ public class TestChampion
     public async void Test_GetChampionById_ReturnTheChampion()
     {
         // Arrange 
-        var  championController = new ChampionControllers(new StubData());
+        var  championController = new ChampionControllers(new StubData(), _logger);
         int expeptedId = 1;
         var expectedChampion = new ChampionDTO(1, "Akali", null, null);
         
@@ -104,7 +106,7 @@ public class TestChampion
     public async void Test_GetChampionById_ReturnOkResult()
     {
         // Arrange 
-        var  championController = new ChampionControllers(new StubData());
+        var  championController = new ChampionControllers(new StubData(), _logger);
         int expeptedId = 1;
         
         // Act 
@@ -121,7 +123,7 @@ public class TestChampion
     public async void Test_GetChampionByIdReturnNotFoundResult()
     {
         //Arrange 
-        var championController = new ChampionControllers(new StubData());
+        var championController = new ChampionControllers(new StubData(), _logger);
         int expeptedId = 999999999;
         
         // Act
@@ -137,7 +139,7 @@ public class TestChampion
     {
         
         // Arrange 
-        var  championController = new ChampionControllers(new StubData());
+        var  championController = new ChampionControllers(new StubData(), _logger);
         var championDTO = new ChampionDTO(10, "Biographie", "Icone", "Nom");
         
         // Act
@@ -154,7 +156,7 @@ public class TestChampion
     {
         
         // Arrange 
-        var  championController = new ChampionControllers(new StubData());
+        var  championController = new ChampionControllers(new StubData(), _logger);
         var championDTO = new ChampionDTO(10, "Biographie", "Icone", "Nom");
         
         // Act
@@ -171,7 +173,7 @@ public class TestChampion
     {
         
         // Arrange 
-        var  championController = new ChampionControllers(new StubData());
+        var  championController = new ChampionControllers(new StubData(), _logger);
         var championDTO = new ChampionDTO(10, "Biographie", "Icone", "Nom");
         
         // Act
@@ -194,7 +196,7 @@ public class TestChampion
     {
         
         // Arrange 
-        var  championController = new ChampionControllers(new StubData());
+        var  championController = new ChampionControllers(new StubData(), _logger);
         int expectedId = 1;        
         // Act
         var championResult = await championController.DeleteChampion(expectedId);
@@ -210,7 +212,7 @@ public class TestChampion
     {
         
         // Arrange 
-        var  championController = new ChampionControllers(new StubData());
+        var  championController = new ChampionControllers(new StubData(), _logger);
         int expectedId = 1;        
         // Act
         var championResult = await championController.DeleteChampion(expectedId);
@@ -226,7 +228,7 @@ public class TestChampion
     {
         
         // Arrange 
-        var  championController = new ChampionControllers(new StubData());
+        var  championController = new ChampionControllers(new StubData(), _logger);
         int expectedId = 1;        
         // Act
         var championResult = await championController.DeleteChampion(expectedId);
@@ -243,7 +245,7 @@ public class TestChampion
     public async void Test_DeleteChampionReturnAllChampionsWithoutChampionMatchinWithId()
     {
         // Arrange 
-        var  championController = new ChampionControllers(new StubData());
+        var  championController = new ChampionControllers(new StubData(), _logger);
         int expectedId = 1;  
         ChampionDTO championDto = new ChampionDTO(1,"Ivern", "test bio", "test icon");
         List<ChampionDTO> champions = new()
@@ -272,7 +274,7 @@ public class TestChampion
     public async void Test_ModifyNameChampionReturnOkResult()
     {
         // Arrange
-        var championController = new ChampionControllers(new StubData());
+        var championController = new ChampionControllers(new StubData(), _logger);
         int expectedId = 1;
         string newName = "Akala";
         
@@ -289,7 +291,7 @@ public class TestChampion
     public async void Test_ModifyNameChampionReturnNotFoundResult()
     {
         // Arrange
-        var championController = new ChampionControllers(new StubData());
+        var championController = new ChampionControllers(new StubData(), _logger);
         int expectedId = 1;
         string newName = "Akala";
         
@@ -306,7 +308,7 @@ public class TestChampion
     public async void Test_ModifyNameChampionReturnChampionWithNewName()
     {
         // Arrange
-        var championController = new ChampionControllers(new StubData());
+        var championController = new ChampionControllers(new StubData(), _logger);
         int expectedId = 1;
         string newName = "Akala";
 

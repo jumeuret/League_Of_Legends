@@ -2,7 +2,7 @@
 
 namespace Entity_Framework
 {
-[Table("RunePage")]
+    [Table("RunePage")]
     public class RunePageEntity
     {
         public int Id { get; set; }

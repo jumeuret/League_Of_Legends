@@ -1,8 +1,4 @@
-﻿using System.ComponentModel;
-using System.Reflection.PortableExecutable;
-using Entity_Framework;
-using EntityFramework;
-using EntityFramework.Migrations;
+﻿using Entity_Framework;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 

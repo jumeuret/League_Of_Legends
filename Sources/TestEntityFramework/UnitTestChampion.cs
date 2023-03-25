@@ -1,11 +1,6 @@
-using System.Linq;
 using Entity_Framework;
-using EntityFramework;
-using EntityFramework.Migrations;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using Model;
-using Xunit;
 
 namespace TestEntityFramework
 {
