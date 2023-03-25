@@ -109,4 +109,45 @@ public class UnitTestSkin
             context.SaveChanges();    
         }
     }
+    
+    [Theory]
+    [InlineData("Je suis la description de skin1", "Je suis l'icone de skin1", 11, "Je suis l'image de skin1", "Je suis le nom de skin1", 1.1)]
+    [InlineData("Je suis la description de skin2", "Je suis l'icone de skin2", 12, "Je suis l'image de skin2", "Je suis le nom de skin2", 1.2)]
+
+    public void DeleteSkin_Test(string description, string icone, int id, string image, string name, float price)
+    {
+        var connection = new SqliteConnection("DataSource=:memory:");
+        connection.Open();
+            
+        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+            .UseInMemoryDatabase(databaseName: "DeleteSkinDB")
+            .Options;
+
+        using (var context = new ApplicationDbContext(options))
+        {
+            context.Database.EnsureCreated();
+
+            SkinEntity skin = new SkinEntity
+            {
+                Description = description,
+                Icon = icone,
+                Id = id,
+                Image = image,
+                Name = name,
+                Price = price
+            };
+                    
+            context.SkinSet.Add(skin);
+
+            context.SaveChanges();
+
+            Assert.Equal(1, context.SkinSet.Count());
+                
+            context.SkinSet.Remove(skin);
+
+            context.SaveChanges();
+            
+            Assert.Equal(0, context.SkinSet.Count());
+        }
+    }
 }

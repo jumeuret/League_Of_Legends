@@ -26,21 +26,21 @@ public class ApplicationDbContext : DbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // modelBuilder.Entity<ChampionEntity>().ToTable("Champions");
-        //
-        // modelBuilder.Entity<ChampionEntity>().HasKey(c => c.Id);
-        //
-        // modelBuilder.Entity<ChampionEntity>().Property(c => c.Id).ValueGeneratedOnAdd();
-        //
-        // modelBuilder.Entity<ChampionEntity>().Property(c => c.Name).IsRequired();
-        //
-        // modelBuilder.Entity<ChampionEntity>().Property(c => c.Icon);
-        //
-        // modelBuilder.Entity<ChampionEntity>().Property(c => c.Bio);
-        //
-        // base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<ChampionEntity>().ToTable("Champions");
+        
+        modelBuilder.Entity<ChampionEntity>().HasKey(c => c.Id);
+        
+        modelBuilder.Entity<ChampionEntity>().Property(c => c.Id).ValueGeneratedOnAdd();
+        
+        modelBuilder.Entity<ChampionEntity>().Property(c => c.Name).IsRequired();
+        
+        modelBuilder.Entity<ChampionEntity>().Property(c => c.Icon);
+        
+        modelBuilder.Entity<ChampionEntity>().Property(c => c.Bio);
         
         base.OnModelCreating(modelBuilder);
+        
+        /*base.OnModelCreating(modelBuilder);
 
         var champion1 = new ChampionEntity{Id = 1, Name = "Akali", Icon= "ff", Bio = "gg"};
         var champion2 = new ChampionEntity{Id = 3, Name = "Aatrox",Icon = "gg", Bio = "gg"};
@@ -58,9 +58,9 @@ public class ApplicationDbContext : DbContext
             new { Id = 4, ChampionId = 1, Name = "jj", Description = "truc", Price = (float)11.5 },
             new { Id = 5, ChampionId = 1, Name = "ll", Description = "truc", Price = (float)11.5 }
         );
-        // modelBuilder.Entity<ChampionEntity>().HasMany(c => c.Skins).WithOne(s => s.ChampionEntity);
+        modelBuilder.Entity<ChampionEntity>().HasMany(c => c.Skins).WithOne(s => s.ChampionEntity);
         
-        base.SaveChanges();
+        base.SaveChanges();*/
     }
 
 }

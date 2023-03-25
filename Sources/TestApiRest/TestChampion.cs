@@ -9,7 +9,7 @@ namespace TestApiRest;
 
 public class TestChampion
 {
-    private readonly ILogger<ChampionControllers> _logger;
+    private readonly ILogger<ChampionController> _logger;
 
     [Fact]
     public void Test_ContructeurDTOValideName()
@@ -39,7 +39,7 @@ public class TestChampion
     public async void Test_GetChampion_ReturnOkResult()
     {
         // Arrange 
-        var  championController = new ChampionControllers(new StubData(), _logger);
+        var  championController = new ChampionController(new StubData(), _logger);
         
         // Act 
         var championsResult = await championController.GetChampions();

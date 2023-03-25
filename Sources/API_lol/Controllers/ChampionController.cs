@@ -186,7 +186,7 @@ namespace API_lol.Controllers
             }
         }
     }
-
+/*
     // PUT api/<ChampionController>/5
     [HttpPut("{id}")]
     public void Put(int id, [FromBody] string value)
@@ -196,7 +196,7 @@ namespace API_lol.Controllers
     // DELETE api/<ChampionController>/5
     [HttpDelete("{id}")]
     public void Delete(int id)
-    {
-    }*/
+    {*/
+}
 
 

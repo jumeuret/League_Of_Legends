@@ -112,57 +112,45 @@ namespace TestEntityFramework
             }
         }
         
-        /*
-
-        [Fact]
-        public void ModifyChampion_Test()
+        [Theory]
+        [InlineData(1, "Test1", "Je suis la bio du test1", "Je suis l_icone du test1", "Je suis l_image du test1", "Je suis la classe du test1")]
+        [InlineData(3, "Test3", "Je suis la bio du test3", "Je suis l_icone du test3", "Je suis l_image du test3", "Je suis la classe du test3")]
+        public void DeleteChampion_Test(int id1, string name1, string bio1, string icone1, string image1, string classe1)
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            
+
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseSqlite(connection)
+                .UseInMemoryDatabase(databaseName: "DeleteChampionDB")
                 .Options;
 
             using (var context = new ApplicationDbContext(options))
             {
                 context.Database.EnsureCreated();
 
-                ChampionEntity champion1 = new ChampionEntity
+                ChampionEntity champion1 = new ChampionEntity()
                 {
-                    Name = "Test1",
-                    Bio = "Je suis la bio du test1",
-                    Icon = "Je suis l'icone du test1",
-                };
-                ChampionEntity champion2 = new ChampionEntity
-                {
-                    Name = "Test2",
-                    Bio = "Je suis la bio du test2",
-                    Icon = "Je suis l'icon du test2",
+                    Id = id1,
+                    Name = name1,
+                    Bio = bio1,
+                    Icon = icone1,
+                    Image = image1,
+                    Class = classe1,
                 };
 
                 context.ChampionSet.Add(champion1);
-                context.ChampionSet.Add(champion2);
-            }
-
-            using (var context = new ApplicationDbContext(options))
-            {
-                context.Database.EnsureCreated();
-
-                Assert.Equal(2, context.ChampionSet.Where(c => c.Name.ToLower().Contains("test")).Count());
-                var Test1 = context.ChampionSet.Where(c => c.Name.ToLower().Contains("test")).First();
-                Test1.Name = "Toto";
+                
                 context.SaveChanges();
-            }
-            
-            using (var context = new ApplicationDbContext(options))
-            {
-                context.Database.EnsureCreated();
 
-                Assert.Equal(1, context.ChampionSet.Where(c => c.Name.ToLower().Contains("test")).Count());
-                Assert.Equal(1, context.ChampionSet.Where(c => c.Name.ToLower().Contains("toto")).Count());
+                Assert.Equal(1, context.ChampionSet.Count());
+                
+                context.ChampionSet.Remove(champion1);
+                
+                context.SaveChanges();
+                
+                Assert.Equal(0, context.ChampionSet.Count());
             }
+        }
 
-        }*/
     }
 }

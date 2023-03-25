@@ -85,4 +85,41 @@ public class UnitTestRunePage
             context.SaveChanges();
         }
     }
+    
+    [Theory]
+    [InlineData(1, "Je suis le nom de runePage1")]
+    [InlineData(2, "Je suis le nom de runePage2")]
+
+    public void DeleteRunePage_Test(int id, string nom)
+    {
+        var connection = new SqliteConnection("DataSource=:memory:");
+        connection.Open();
+            
+        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+            .UseInMemoryDatabase(databaseName: "DeleteRunePageDB")
+            .Options;
+
+        using (var context = new ApplicationDbContext(options))
+        {
+            context.Database.EnsureCreated();
+
+            RunePageEntity runePage = new RunePageEntity()
+            {
+                Id = id,
+                Name = nom,
+            };
+                    
+            context.RunePageSet.Add(runePage);
+
+            context.SaveChanges();
+                
+            Assert.Equal(1, context.RunePageSet.Count());
+            Assert.Equal(id, context.RunePageSet.Last().Id);
+            Assert.Equal(nom, context.RunePageSet.Last().Name);
+                
+            context.RunePageSet.Remove(runePage);
+
+            context.SaveChanges();
+        }
+    }
 }

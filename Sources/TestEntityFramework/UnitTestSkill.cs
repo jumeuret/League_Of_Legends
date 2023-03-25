@@ -35,7 +35,6 @@ public class UnitTestSkill
             context.SkillSet.Add(skill);
 
             context.SaveChanges();
-            context.Database.EnsureCreated();
                 
             Assert.Equal(1, context.SkillSet.Count());
             Assert.Equal(description, context.SkillSet.Last().Description);
@@ -97,6 +96,45 @@ public class UnitTestSkill
             context.SkillSet.Remove(skill);
 
             context.SaveChanges();
+        }
+    }
+    
+    [Theory]
+    [InlineData("Je suis la description de skill1", 111, "Je suis le nom de skill1", "Je suis le type de skill1")]
+    [InlineData("Je suis la description de skill2", 112, "Je suis le nom de skill2", "Je suis le type de skill2")]
+
+    public void DeleteSkill_Test(string description, int id, string name, string type)
+    {
+        var connection = new SqliteConnection("DataSource=:memory:");
+        connection.Open();
+            
+        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+            .UseInMemoryDatabase(databaseName: "DeleteSkillDB")
+            .Options;
+
+        using (var context = new ApplicationDbContext(options))
+        {
+            context.Database.EnsureCreated();
+
+            SkillEntity skill = new SkillEntity()
+            {
+                Description = description,
+                Id = id,
+                Name = name,
+                Type = type
+            };
+                    
+            context.SkillSet.Add(skill);
+
+            context.SaveChanges();
+                
+            Assert.Equal(1, context.SkillSet.Count());
+                
+            context.SkillSet.Remove(skill);
+
+            context.SaveChanges();
+            
+            Assert.Equal(0, context.SkillSet.Count());
         }
     }
 }

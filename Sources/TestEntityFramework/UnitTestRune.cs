@@ -123,4 +123,48 @@ public class UnitTestRune
             context.SaveChanges();
         }
     }
+    
+    [Theory]
+    [InlineData(1, "Je suis le nom de rune1", "Je suis la description de rune1", "Je suis la categorie de rune1", 
+        "Je suis la famille de rune1", "Je suis l_image de rune1", "Je suis l_icone de rune1")]
+    [InlineData(2, "Je suis le nom de rune2", "Je suis la description de rune2", "Je suis la categorie de rune2", 
+        "Je suis la famille de rune2", "Je suis l_image de rune2", "Je suis l_icone de rune2")]
+
+    public void DeleteCharacteristic_Test(int id, string nom, string description, string categorie, string famille, string icone, string image)
+    {
+        var connection = new SqliteConnection("DataSource=:memory:");
+        connection.Open();
+            
+        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+            .UseInMemoryDatabase(databaseName: "DeleteRuneDB")
+            .Options;
+
+        using (var context = new ApplicationDbContext(options))
+        {
+            context.Database.EnsureCreated();
+
+            RuneEntity rune = new RuneEntity()
+            {
+                Id = id,
+                Name = nom,
+                Description = description,
+                Categorie = categorie,
+                Family = famille,
+                Icon = icone,
+                Image = image,
+            };
+                    
+            context.RuneSet.Add(rune);
+
+            context.SaveChanges();
+                
+            Assert.Equal(1, context.RuneSet.Count());
+
+            context.RuneSet.Remove(rune);
+
+            context.SaveChanges();
+            
+            Assert.Equal(0, context.RuneSet.Count());
+        }
+    }
 }

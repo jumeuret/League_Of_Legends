@@ -54,8 +54,8 @@ namespace API_lol.Controllers
 
             return Ok(page); // les retours API doivent être des DTO
         }
-/*
-        [HttpGet("{id}")]
+
+        /*[HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RunePageDTO))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetRunePageById(int id)
@@ -63,7 +63,7 @@ namespace API_lol.Controllers
             // _logger.LogInformation("Méthode GetById");
             // _logger.LogWarning("Ceci est un avertissement!");
             // _logger.LogError("");
-            var laRunePage = await _dataManager.RunePagesMgr. .GetById(id);
+            var laRunePage = await _dataManager.RunePagesMgr.GetItemsByRune(id);
             if (leChampion == null)
             {
                 return NotFound();
@@ -74,58 +74,87 @@ namespace API_lol.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> AddChampion([FromBody] ChampionDTO champion)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RunePageDTO))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> AddRunePage([FromBody] RunePageDTO runePageDTO)
         {
-            // try
-            // {
-            var championModel = champion.FromDTO();
-            if (championModel == null)
+            try
             {
-                return NotFound();
+                var runePageModel = runePageDTO.FromDTO();
+                if (runePageModel == null)
+                {
+                    _logger.LogWarning("La RunePage est incorrecte");
+                    return Unauthorized();
+                }
+
+                var runePageResult = await _dataManager.RunePagesMgr.AddItem(runePageModel);
+                var runePageResultDto = runePageResult.ToDTO();
+                var truc = _dataManager.RunePagesMgr.
+                    ChampionsMgr.GetById(runePageResultDto.Id);
+
+                return CreatedAtAction(nameof(GetChampionById),
+                    new { Id = championResultDto.Id, championResultDto }); //CreatedAtAction = Code 20
             }
-
-            var championResult = await _dataManager.ChampionsMgr.AddItem(championModel);
-            var championResultDto = championResult.ToDTO();
-            var truc = _dataManager.ChampionsMgr.GetById(championResultDto.Id);
-
-            return CreatedAtAction(nameof(GetChampionById),
-                new { Id = championResultDto.Id, championResultDto }); //CreatedAtAction = Code 20
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Une erreur s'est produite lors de l'ajout du champion");
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteChampion(int id)
         {
-            var leChampion = await _dataManager.ChampionsMgr.GetById(id);
-            if (leChampion == null)
+            try
             {
-                return NotFound();
+                var leChampion = await _dataManager.ChampionsMgr.GetById(id);
+                if (leChampion == null)
+                {
+                    _logger.LogWarning($"Aucun champion n'a été trouvé avec cette identifiant {id}");
+                    return NotFound();
+                }
+
+                var championResult = await _dataManager.ChampionsMgr.DeleteItem(leChampion);
+                return Ok(championResult); // est sensé pas indiquer 200 si l'id n'existe pas
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Une erreur s'est produite lors de la suppresion du champion");
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
-            var championResult = await _dataManager.ChampionsMgr.DeleteItem(leChampion);
-            return Ok(championResult); // est sensé pas indiquer 200 si l'id n'existe pas
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> ModifyNameChampion(int id, [FromBody] string newName)
         {
-            var leChampion = await _dataManager.ChampionsMgr.GetById(id);
-            if (leChampion == null)
+            try
             {
-                return NotFound();
-            }
+                var leChampion = await _dataManager.ChampionsMgr.GetById(id);
+                if (leChampion == null)
+                {
+                    _logger.LogWarning($"Aucun champion n'a été trouvé avec cet identifiant {id}");
+                    return NotFound();
+                }
 
-            var newChampion = new Champion(newName, leChampion.Class, leChampion.Icon,
-                leChampion.Image.Base64, leChampion.Bio);
-            leChampion = await _dataManager.ChampionsMgr.UpdateItem(leChampion, newChampion);
-            var championResultDto = leChampion.ToDTO();
-            return Ok(championResultDto);
-        }
-*/
+                var newChampion = new Champion(newName, leChampion.Class, leChampion.Icon,
+                    leChampion.Image.Base64, leChampion.Bio);
+                leChampion = await _dataManager.ChampionsMgr.UpdateItem(leChampion, newChampion);
+                var championResultDto = leChampion.ToDTO();
+                return Ok(championResultDto);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Une erreur s'est produite lors de la modification du nom du champion");
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }*/
     }
 }

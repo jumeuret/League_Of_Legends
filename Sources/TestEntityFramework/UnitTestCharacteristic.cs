@@ -85,4 +85,42 @@ public class UnitTestCharacteristic
             context.SaveChanges();
         }
     }
+    
+    [Theory]
+    [InlineData("Je suis le nom de caracteristique1", 1)]
+    [InlineData("Je suis le nom de caracteristique3", 3)]
+
+    public void DeleteCharacteristic_Test(string nom, int old_niveau)
+    {
+        var connection = new SqliteConnection("DataSource=:memory:");
+        connection.Open();
+            
+        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+            .UseInMemoryDatabase(databaseName: "DeleteCharacteristicDB")
+            .Options;
+
+        using (var context = new ApplicationDbContext(options))
+        {
+            context.Database.EnsureCreated();
+
+            CharacteristicsEntity characteristic = new CharacteristicsEntity
+            {
+                Nom = nom,
+                Niveau = old_niveau
+            };
+                    
+            context.CharacteristicSet.Add(characteristic);
+
+            context.SaveChanges();
+            
+            Assert.Equal(1, context.CharacteristicSet.Count());
+
+            context.CharacteristicSet.Remove(characteristic);
+
+            context.SaveChanges();
+            
+            Assert.NotEqual(1, context.CharacteristicSet.Count());
+            Assert.Equal(0, context.CharacteristicSet.Count());
+        }
+    }
 }
