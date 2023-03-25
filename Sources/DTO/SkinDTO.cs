@@ -4,7 +4,7 @@ namespace DTO;
 
 public class SkinDTO
 {
-
+    public int Id { get; set; }
     public string Name { get; set; }
     
     public Champion Champion { get; set; }
@@ -16,8 +16,9 @@ public class SkinDTO
     public string Image { get; set; }
     public string Description { get; set; }
 
-    public SkinDTO(string Name, Champion Champion, float Price = 0.0f, string Icon = "", string Image = "", string Description = "")
+    public SkinDTO(int Id, string Name, Champion Champion, float Price = 0.0f, string Icon = "", string Image = "", string Description = "")
     {
+        this.Id = Id;
         this.Name = Name;
         this.Description = Description;
         this.Price = Price;

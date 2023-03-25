@@ -7,12 +7,12 @@ using Model;
 namespace TestEntityFramework;
 
 public class UnitTestChampionManager
-{/*
+{
     [Theory]
     [InlineData(10, "Test1", "Je suis la bio du test1", "Je suis l_icone du test1", "Je suis l_image du test1", "Marksman")]
     public void ChampionManagerTest_GetById(int id, string name, string bio, string icon, string image, string classe)
     {
-        var champion = new Champion(name, (ChampionClass)Enum.Parse(typeof(ChampionClass), classe), icon, image,bio);
+        var champion = new Champion(id, name, (ChampionClass)Enum.Parse(typeof(ChampionClass), classe), icon, image,bio);
         
         var connection = new SqliteConnection("DataSource=:memory:");
         connection.Open();
@@ -44,7 +44,7 @@ public class UnitTestChampionManager
 
             context.Database.EnsureDeleted();
         }
-    }*/
+    }
 
     /*[Theory]
     [InlineData(1, "Test1", "Je suis la bio du test1", "Je suis l_icone du test1", "Je suis l_image du test1", "Je suis la classe du test1", "Je suis me nom du nouveau champion")]
@@ -91,7 +91,7 @@ public class UnitTestChampionManager
     }*/
 
     [Theory]
-    [InlineData(100, "Test1", "Je suis la bio du test1", "Je suis l_icone du test1", "Je suis l_image du test1", "Fighter", 1)]
+    [InlineData(10, "Test1", "Je suis la bio du test1", "Je suis l_icone du test1", "Je suis l_image du test1", "Fighter", 1)]
     public void championManagerTest_addItem(int id, string name, string bio, string icon, string image, string classe, int nb)
     {
         var connection = new SqliteConnection("DataSource=:memory:");
@@ -104,7 +104,7 @@ public class UnitTestChampionManager
         using (var context = new ApplicationDbContext(options))
         {
             context.Database.EnsureCreated();
-            var champion = new Champion(name,(ChampionClass)Enum.Parse(typeof(ChampionClass), "Assassin"), icon, image, bio);
+            var champion = new Champion(id, name,(ChampionClass)Enum.Parse(typeof(ChampionClass), "Assassin"), icon, image, bio);
             var championManager = new ChampionManager();
             var result =  championManager.AddItem(champion).Result;
             context.SaveChanges(); 

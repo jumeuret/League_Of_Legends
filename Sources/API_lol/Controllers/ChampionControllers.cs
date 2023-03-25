@@ -37,7 +37,6 @@ namespace API_lol.Controllers
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PageDTO<IEnumerable<ChampionDTO>>))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetChampions([FromQuery] int index = 0, int count = 10)
         {
             if (count > 50)
@@ -192,7 +191,7 @@ namespace API_lol.Controllers
                     return NotFound();
                 }
 
-                var newChampion = new Champion(newName, leChampion.Class, leChampion.Icon,
+                var newChampion = new Champion(leChampion.Id, newName, leChampion.Class, leChampion.Icon,
                     leChampion.Image.Base64, leChampion.Bio);
                 leChampion = await _dataManager.ChampionsMgr.UpdateItem(leChampion, newChampion);
                 var championResultDto = leChampion.ToDTO();

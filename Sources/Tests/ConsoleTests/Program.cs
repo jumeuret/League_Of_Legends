@@ -182,10 +182,11 @@ namespace ConsoleTests
 				case 6:
 					{
 						WriteLine("You are going to create a new champion.");
+						int id = ReadAnInt("Please enter the champion id:");
 						string name = ReadAString("Please enter the champion name:");
 						ChampionClass championClass = ReadAnEnum<ChampionClass>($"Please enter the champion class (possible values are: {Enum.GetNames<ChampionClass>().Aggregate("", (name, chaine) => $"{chaine} {name}")}):");
 						string bio = ReadAString("Please enter the champion bio:");
-						Champion champion = new Champion(name, championClass, bio: bio);
+						Champion champion = new Champion(id: id, name, championClass, bio: bio);
 						DisplayCreationChampionMenu(champion);
 						_ = await dataManager.ChampionsMgr.AddItem(champion);
 					}	
@@ -216,8 +217,9 @@ namespace ConsoleTests
 																			someChampionNames.ToArray());
 						if(champName == "Cancel") break;
 						ChampionClass championClass = ReadAnEnum<ChampionClass>($"Please enter the champion class (possible values are: {Enum.GetNames<ChampionClass>().Aggregate("", (name, chaine) => $"{chaine} {name}")}):");
+						int id = ReadAnInt("Please enter the champion id:");
 						string bio = ReadAString("Please enter the champion bio:");
-						Champion champion = new Champion(champName, championClass, bio: bio);
+						Champion champion = new Champion(id: id, champName, championClass, bio: bio);
 						DisplayCreationChampionMenu(champion);
 						await dataManager.ChampionsMgr.UpdateItem(somechampions.Single(c => c!.Name == champName), champion);
 					}	

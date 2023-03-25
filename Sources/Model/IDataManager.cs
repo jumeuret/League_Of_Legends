@@ -33,6 +33,8 @@ namespace Model
 
 	public interface ISkinsManager : IGenericDataManager<Skin?>
 	{
+		Task<Skin> GetItemByChampion(Champion champion, Skin skin);
+		Task<Skin> GetById(int id);
 		Task<int> GetNbItemsByChampion(Champion? champion);
 		Task<IEnumerable<Skin?>> GetItemsByChampion(Champion? champion, int index, int count, string? orderingPropertyName = null, bool descending = false);
 	}

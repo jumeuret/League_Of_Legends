@@ -9,23 +9,23 @@ namespace StubLib
 
 		private void InitSkins()
 		{
-			skins.Add(new Skin("Stinger", champions[0]));
-			skins.Add(new Skin("Infernal", champions[0]));
-			skins.Add(new Skin("All-Star", champions[0]));
-			skins.Add(new Skin("Justicar", champions[1]));
-			skins.Add(new Skin("Mecha", champions[1]));
-			skins.Add(new Skin("Sea Hunter", champions[1]));
-			skins.Add(new Skin("Dynasty", champions[2]));
-			skins.Add(new Skin("Midnight", champions[2]));
-			skins.Add(new Skin("Foxfire", champions[2]));
-			skins.Add(new Skin("Cyber Pop", champions[3]));
-			skins.Add(new Skin("Crystal Rose", champions[3]));
-			skins.Add(new Skin("Elderwood", champions[4]));
-			skins.Add(new Skin("Snow Day", champions[4]));
-			skins.Add(new Skin("Bard", champions[4]));
-			skins.Add(new Skin("Black", champions[5]));
-			skins.Add(new Skin("Golden", champions[5]));
-			skins.Add(new Skin("Matador", champions[5]));
+			skins.Add(new Skin(1,"Stinger", champions[0]));
+			skins.Add(new Skin(2,"Infernal", champions[0]));
+			skins.Add(new Skin(3,"All-Star", champions[0]));
+			skins.Add(new Skin(4,"Justicar", champions[1]));
+			skins.Add(new Skin(5,"Mecha", champions[1]));
+			skins.Add(new Skin(6,"Sea Hunter", champions[1]));
+			skins.Add(new Skin(7,"Dynasty", champions[2]));
+			skins.Add(new Skin(8,"Midnight", champions[2]));
+			skins.Add(new Skin(9,"Foxfire", champions[2]));
+			skins.Add(new Skin(10,"Cyber Pop", champions[3]));
+			skins.Add(new Skin(11,"Crystal Rose", champions[3]));
+			skins.Add(new Skin(12,"Elderwood", champions[4]));
+			skins.Add(new Skin(13,"Snow Day", champions[4]));
+			skins.Add(new Skin(14,"Bard", champions[4]));
+			skins.Add(new Skin(15,"Black", champions[5]));
+			skins.Add(new Skin(16,"Golden", champions[5]));
+			skins.Add(new Skin(17,"Matador", champions[5]));
 		}
 
 		public class SkinsManager : ISkinsManager
@@ -54,6 +54,9 @@ namespace StubLib
                 => parent.skins.GetItemsWithFilterAndOrdering(
                     skin => filterByChampion(skin, champion),
                     index, count, orderingPropertyName, descending);
+            
+            public Task<Skin?> GetItemByChampion(Champion champion, Skin skin)
+	            => Task.FromResult(parent.skins.SingleOrDefault(skin => filterByChampion(skin, champion)));
 
             public Task<IEnumerable<Skin?>> GetItemsByName(string substring, int index, int count, string? orderingPropertyName = null, bool descending = false)
                 => parent.skins.GetItemsWithFilterAndOrdering(
@@ -75,10 +78,10 @@ namespace StubLib
             public Task<Skin?> UpdateItem(Skin? oldItem, Skin? newItem)
                 => parent.skins.UpdateItem(oldItem, newItem);
             
-            public Task<Champion> GetById(int id)
-            {
-	            throw new NotImplementedException();
-            }
+            private Func<Skin, int, bool> filterById = (skin, id) => skin.Id==id;
+            public Task<Skin> GetById(int id) 
+	            => Task.FromResult(parent.skins.SingleOrDefault(skin => filterById(skin, id)));
+
         }
 	}
 }
