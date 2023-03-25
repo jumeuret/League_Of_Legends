@@ -9,21 +9,21 @@ using Model;
 
 namespace API_lol.Controllers
 {
-    [Route("[controller]")]
+    [Route("[runePages]")]
     [ApiController]
-    public class ChampionControllers : ControllerBase
+    public class RunePageController : ControllerBase
     {
         private readonly IDataManager _dataManager;
-        private readonly ILogger<ChampionControllers> _logger;
+        private readonly ILogger<RunePageController> _logger;
         private readonly IConfiguration _configuration;
 
         /// <summary>
-        /// Constructeur de la classe ChampionControllers
+        /// Constructeur de la classe RunePageController
         /// </summary>
         /// <param name="dataManager"></param>
         /// <param name="logger"></param>
         /// <param name="configuration"></param>
-        public ChampionControllers(IDataManager dataManager)
+        public RunePageController(IDataManager dataManager)
         {
             _dataManager = dataManager;
             // _logger = logger;
@@ -31,58 +31,48 @@ namespace API_lol.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PageDTO<IEnumerable<ChampionDTO>>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PageDTO<IEnumerable<RunePageDTO>>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetChampions([FromQuery] int index = 0, int count = 10)
+        public async Task<IActionResult> GetRunePages([FromQuery] int index = 0, int count = 10)
         {
             if (count > 50)
             {
-                _logger.LogWarning($"Method GetChampions call with {count} (which is too large)");
+                _logger.LogWarning($"Method GetRunePages call with {count} (which is too large)");
                 count = 5;
             }
-            var lesChampions =
-                await _dataManager.ChampionsMgr.GetItems(index, count);
 
-            PageDTO<IEnumerable<ChampionDTO>> page = new PageDTO<IEnumerable<ChampionDTO>>
+            var lesRunePages =
+                await _dataManager.RunePagesMgr.GetItems(index, count);
+
+            PageDTO<IEnumerable<RunePageDTO>> page = new PageDTO<IEnumerable<RunePageDTO>>
             {
-                Data = lesChampions.Select(champion => champion?.ToDTO()),
+                Data = lesRunePages.Select(rune => rune?.ToDTO()),
                 Index = index,
                 Count = count,
-                TotalCount = await _dataManager.ChampionsMgr.GetNbItems()
+                TotalCount = await _dataManager.RunePagesMgr.GetNbItems()
             };
 
             return Ok(page); // les retours API doivent être des DTO
         }
-
-        /// <summary>
-        /// Récupération du champion, s'il existe, connu grâce à son id
-        /// </summary>
-        /// <param name="id"> l'identifiant du champion à récupérer</param>
-        /// <response code="200">Le champion a été récupéré</response>
-        /// <response code="404">Valeur manquante ou non valide pour le champion</response>
+/*
         [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RunePageDTO))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetChampionById(int id)
+        public async Task<IActionResult> GetRunePageById(int id)
         {
             // _logger.LogInformation("Méthode GetById");
             // _logger.LogWarning("Ceci est un avertissement!");
             // _logger.LogError("");
-            var leChampion = await _dataManager.ChampionsMgr.GetById(id);
+            var laRunePage = await _dataManager.RunePagesMgr. .GetById(id);
             if (leChampion == null)
             {
                 return NotFound();
             }
+
             var leChampionDto = leChampion.ToDTO();
             return Ok(leChampionDto);
         }
 
-        /// <summary>
-        /// Insertion d'un champion
-        /// </summary>
-        /// <param name="champion"> le champion à inserrer</param>
-        /// <response code="200">Le champion a bien été insérré</response>
-        /// <response code="404">Valeur manquante ou non valide pour le champion</response>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -95,6 +85,7 @@ namespace API_lol.Controllers
             {
                 return NotFound();
             }
+
             var championResult = await _dataManager.ChampionsMgr.AddItem(championModel);
             var championResultDto = championResult.ToDTO();
             var truc = _dataManager.ChampionsMgr.GetById(championResultDto.Id);
@@ -103,12 +94,6 @@ namespace API_lol.Controllers
                 new { Id = championResultDto.Id, championResultDto }); //CreatedAtAction = Code 20
         }
 
-        /// <summary>
-        /// Suppression d'un champion
-        /// </summary>
-        /// <param name="id">l'identifiant du champion à supprimer</param>
-        /// <response code="200">Le champion est supprimé</response>
-        /// <response code="404">Valeur manquante ou non valide pour le champion</response>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -119,16 +104,11 @@ namespace API_lol.Controllers
             {
                 return NotFound();
             }
+
             var championResult = await _dataManager.ChampionsMgr.DeleteItem(leChampion);
             return Ok(championResult); // est sensé pas indiquer 200 si l'id n'existe pas
         }
-        /// <summary>
-        /// Modification du nom du champion connu grâce à son l'id 
-        /// </summary>
-        /// <param name="id">l'identitifiant du champion à modifier</param>
-        /// <param name="newName"> le nouveau nom du champion</param>
-        /// <response code="200">Le champions a bien été modifié</response>
-        /// <response code="404">Valeur manquante ou non valide pour le champion</response>
+
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -139,59 +119,13 @@ namespace API_lol.Controllers
             {
                 return NotFound();
             }
+
             var newChampion = new Champion(newName, leChampion.Class, leChampion.Icon,
                 leChampion.Image.Base64, leChampion.Bio);
             leChampion = await _dataManager.ChampionsMgr.UpdateItem(leChampion, newChampion);
             var championResultDto = leChampion.ToDTO();
-            return Ok(championResultDto); 
+            return Ok(championResultDto);
         }
+*/
     }
 }
-
-/*  [HttpGet("{string:Name}")]
-  public async Task<IActionResult> GetByName(string Name)
-  {
-      var stub = new StubData();
-      List<Champion> champions = new List<Champion>();
-
-      var champion = await stub.ChampionsMgr.GetItemsByCharacteristic(Name, 1, 1);
-      var dto = new ChampionDTO();
-      dto.AddRange(champions);
-      ChampionDTO dto = await champions;
-
-      return Ok(dto);
-  }
-
-/*  [HttpDelete]
-  public async Task<IActionResult> Delete()
-  {
-      var stub = new StubData();
-
-      */ /*var dto = new ChampionDTO();*/ /*
-                    var champions = await stub.ChampionsMgr
-                   ;
-                    return Ok(champions);
-                }*/
-
-
-    // des exemples
-
-    // POST api/<ChampionController>
-    /*[HttpPost]
-    public void Post([FromBody] string value)
-    {
-    }
-
-    // PUT api/<ChampionController>/5
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
-    {
-    }
-
-    // DELETE api/<ChampionController>/5
-    [HttpDelete("{id}")]
-    public void Delete(int id)
-    {
-    }*/
-
-
