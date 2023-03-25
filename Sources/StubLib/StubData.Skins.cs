@@ -74,6 +74,11 @@ namespace StubLib
 
             public Task<Skin?> UpdateItem(Skin? oldItem, Skin? newItem)
                 => parent.skins.UpdateItem(oldItem, newItem);
+            
+            public Task<Champion> GetById(int id)
+            {
+	            throw new NotImplementedException();
+            }
         }
 	}
 }

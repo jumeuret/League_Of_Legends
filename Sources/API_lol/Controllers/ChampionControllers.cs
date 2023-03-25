@@ -8,7 +8,7 @@ using Model;
 
 namespace API_lol.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/champions")]
     [ApiController]
     public class ChampionControllers : ControllerBase
     {
@@ -29,6 +29,12 @@ namespace API_lol.Controllers
             // _configuration = configuration;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PageDTO<IEnumerable<ChampionDTO>>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -77,7 +83,7 @@ namespace API_lol.Controllers
             var leChampionDto = leChampion.ToDTO();
             return Ok(leChampionDto);
         }
-        
+
         //getNbChampions()
         /// <summary>
         /// Comptage du nombre de champions 
@@ -85,7 +91,7 @@ namespace API_lol.Controllers
         /// <response code="200">Le champion nombre de champion (0 minimum)</response>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
-        public async Task<IActionResult> GtNumberOfChampions()
+        public async Task<IActionResult> GetNumberOfChampions()
         {
             var nombreChampion = await _dataManager.ChampionsMgr.GetNbItems();
             return Ok(nombreChampion);
@@ -198,9 +204,33 @@ namespace API_lol.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
-        
-        
+
+        /// <summary>
+        /// Récupération de la liste des skins d'un champion
+        /// </summary>
+        /// <param name="idChampion">l'identitifiant du champion auquel appartient les kins</param>
+        /// <returns>La liste de skins du champion</returns>
+        [HttpGet("{idChampion}/skin")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetSkinsByChampion(int idChampion)
+        {
+            var champion = await _dataManager.ChampionsMgr.GetById(idChampion);
+
+            if (champion == null)
+            {
+                _logger.LogWarning($"Aucun champion n'a été trouvé avec cette identifiant {idChampion}");
+                return NotFound();
+            }
+
+            var skins = await _dataManager.SkinsMgr.GetItemsByChampion(champion, 0,
+                await _dataManager.SkinsMgr.GetNbItems());
+            var lesSkinsDto = skins.Select(skins => skins.toDTO());
+
+            return Ok(lesSkinsDto);
+        }
     }
 }
+
 
 
