@@ -23,9 +23,9 @@ namespace API_lol.Controllers
         /// <summary>
         /// Constructeur de la classe RunePageController.
         /// </summary>
-        /// <param name="dataManager">Iterface permettant d'accéder aux ressources de l'application.</param>
-        /// <param name="logger">Le logger utilisé pour l'enregistrement des messages de journalisation.</param>
-        /// <param name="configuration">La configuration de l'application.</param>
+        /// <param name="dataManager">Iterface permettant d'accéder aux ressources de l'application</param>
+        /// <param name="logger">Le logger utilisé pour l'enregistrement des messages de journalisation</param>
+        /// <param name="configuration">La configuration de l'application</param>
         public RunePageController(IDataManager dataManager)
         {
             _dataManager = dataManager;
