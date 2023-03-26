@@ -10,12 +10,7 @@ namespace Entity_Framework;
 /// </summary>
 public class SkinManager : ISkinsManager
 {
-    private readonly EFManager parent;
-
-    public SkinManager(EFManager parent)
-    {
-        this.parent = parent;
-    }
+ 
     public Task<int> GetNbItems()
     {
         using (var context = new ApplicationDbContext())
