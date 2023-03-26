@@ -2,8 +2,16 @@
 
 namespace Entity_Framework.Mapper;
 
+/// <summary>
+/// Classe permetant de faire des convertion de type sur les Champion et ChampionEntity
+/// </summary>
 public static class ChampionMapper
 {
+    /// <summary>
+    /// Permet de convertir un Champion en ChampionEntity
+    /// </summary>
+    /// <param name="champion"> Le champion à convertir en championEntity</param>
+    /// <returns>Un championEntity</returns>
     public static ChampionEntity ToChampionEntity(this Champion champion)
     {
         var championEntity = new ChampionEntity()
@@ -54,6 +62,11 @@ public static class ChampionMapper
         return championEntity;
     }
 
+    /// <summary>
+    /// Permet de convertir un ChampionEntity en Champion
+    /// </summary>
+    /// <param name="champEntity"> Le ChampionEntity à convertir</param>
+    /// <returns>Un Champion</returns>
     public static Champion ToChampion(this ChampionEntity champEntity)
     {
         var champion = new Champion(champEntity.Id, champEntity.Name, (ChampionClass)Enum.Parse(typeof(ChampionClass), champEntity.Class), champEntity.Icon, champEntity.Image, champEntity.Bio);
@@ -74,9 +87,6 @@ public static class ChampionMapper
         {
             champion.AddCharacteristics(new Tuple<string, int>(characteristic.Nom, characteristic.Niveau));
         }
-
-        // Manquant (Pb internal)
-        //champion.AddSkin(skins);
 
         return champion;
     }

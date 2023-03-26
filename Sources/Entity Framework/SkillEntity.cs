@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entity_Framework;
 
+/// <summary>
+/// Classe correspondat à une entité skill
+/// </summary>
 [Table("Skill")]
 public class SkillEntity
 {

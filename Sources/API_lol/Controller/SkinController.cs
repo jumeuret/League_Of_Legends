@@ -3,11 +3,12 @@ using API_lol.Mapper;
 using DTO;
 using Microsoft.AspNetCore.Mvc;
 using Model;
-using StubLib;
 
 namespace API_lol.Controller;
 
-[Route("[controller]")]
+
+[Route("api/v{version:apiVersion}/[controller]")]
+[ApiVersion("1.0")]
 [ApiController]
 public class SkinController : ControllerBase
 {
@@ -28,6 +29,10 @@ public class SkinController : ControllerBase
         // _configuration = configuration;
     }
 
+    /// <summary>
+    /// Permet de lister tous les skins 
+    /// </summary>
+    /// <returns></returns>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SkinDTO))]
     public async Task<IActionResult> GetSkins()
@@ -65,8 +70,13 @@ public class SkinController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
-
     
+    /// <summary>
+    /// Permet de trouver le skin correspondant au champion à partir de id du champion et du skin 
+    /// </summary>
+    /// <param name="idChamp">l'id du champion</param>
+    /// <param name="idSkin">l'id du skin</param>
+    /// <returns></returns>
     [HttpGet("/Champion/{idChamp}/Skin/{idSkin}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SkinDTO))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -82,7 +92,11 @@ public class SkinController : ControllerBase
         var championSkin = await _dataManager.SkinsMgr.GetItemByChampion(champion, skin);
         return Ok(championSkin.ToDTO());
     }
-
+    /// <summary>
+    /// Permet de trouver toutes les skins qui ont le nom entré par le client
+    /// </summary>
+    /// <param name="name">Le nom des skins à trouver</param>
+    /// <returns>La liste des skins qui possèdent le nom</returns>
     [HttpGet("{name}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SkinDTO))]
     public async Task<IActionResult> GetSkinByName(String name)

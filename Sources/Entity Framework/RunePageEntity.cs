@@ -2,6 +2,9 @@
 
 namespace Entity_Framework
 {
+    /// <summary>
+    /// Classe correspondant à une entité runePage
+    /// </summary>
     [Table("RunePage")]
     public class RunePageEntity
     {

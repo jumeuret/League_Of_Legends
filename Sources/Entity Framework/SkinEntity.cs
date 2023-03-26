@@ -5,6 +5,9 @@ using Model;
 
 namespace Entity_Framework;
 
+/// <summary>
+/// Classe correspondant à une entité skin
+/// </summary>
 [Table("Skin")]
 public class SkinEntity
 {

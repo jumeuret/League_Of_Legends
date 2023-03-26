@@ -6,9 +6,8 @@ using Shared;
 
 namespace Entity_Framework;
 
-public class ChampionManager : IGenericDataManager<Champion>
+ public class ChampionManager : IChampionsManager
 {
-    private readonly ILogger<ChampionManager> _logger;
     public Task<int> GetNbItems()
     {
         using (var context = new ApplicationDbContext())
@@ -25,6 +24,59 @@ public class ChampionManager : IGenericDataManager<Champion>
             var championEntity = context.ChampionSet.SingleOrDefault (c => c.Id == id);
             return Task.FromResult(championEntity.ToChampion());
         }
+    }
+
+    public Task<int> GetNbItemsByCharacteristic(string charName)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IEnumerable<Champion?>> GetItemsByCharacteristic(string charName, int index, int count, string? orderingPropertyName = null,
+        bool descending = false)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<int> GetNbItemsByClass(ChampionClass championClass)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IEnumerable<Champion?>> GetItemsByClass(ChampionClass championClass, int index, int count, string? orderingPropertyName = null,
+        bool descending = false)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<int> GetNbItemsBySkill(Skill? skill)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IEnumerable<Champion?>> GetItemsBySkill(Skill? skill, int index, int count, string? orderingPropertyName = null, bool descending = false)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<int> GetNbItemsByRunePage(RunePage? runePage)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IEnumerable<Champion?>> GetItemsByRunePage(RunePage? runePage, int index, int count, string? orderingPropertyName = null,
+        bool descending = false)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<int> GetNbItemsBySkill(string skill)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IEnumerable<Champion?>> GetItemsBySkill(string skill, int index, int count, string? orderingPropertyName = null, bool descending = false)
+    {
+        throw new NotImplementedException();
     }
 
     public Task<IEnumerable<Champion>> GetItems(int index, int count, string? orderingPropertyName = null, bool descending = false)
@@ -109,6 +161,6 @@ public class ChampionManager : IGenericDataManager<Champion>
          {
              return false; 
          }
-        
-    }
-}
+     }
+}   
+

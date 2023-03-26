@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Entity_Framework
 {
+    /// <summary>
+    /// Classe correspondant à une entité rune
+    /// </summary>
     [Table("Rune")]
     public class RuneEntity
     {
