@@ -11,7 +11,7 @@ namespace API_lol.Controllers;
 public class SkinControllers : ControllerBase
 {
     private readonly IDataManager _dataManager;
-    private readonly ILogger<ChampionControllers> _logger;
+    private readonly ILogger<ChampionController> _logger;
     private readonly IConfiguration _configuration;
 
     /// <summary>
@@ -20,7 +20,7 @@ public class SkinControllers : ControllerBase
     /// <param name="dataManager"></param>
     /// <param name="logger"></param>
     /// <param name="configuration"></param>
-    public SkinControllers(IDataManager dataManager, ILogger<ChampionControllers> logger)
+    public SkinControllers(IDataManager dataManager, ILogger<ChampionController> logger)
     {
         _dataManager = dataManager;
         _logger = logger;

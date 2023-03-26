@@ -18,7 +18,7 @@ public class SkinEntity
     [Required]
     public float Price { get; set; }
     
-    public ChampionEntity Champion { get; set; }
+    public ChampionEntity ChampionEntity { get; set; }
 
     public override string ToString()
     {
