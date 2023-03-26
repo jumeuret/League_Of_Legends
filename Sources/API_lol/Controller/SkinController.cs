@@ -1,14 +1,16 @@
-﻿using API_lol.Mapper;
+﻿using API_lol.Controllers;
+using API_lol.Mapper;
 using DTO;
 using Microsoft.AspNetCore.Mvc;
 using Model;
 
-namespace API_lol.Controllers;
+namespace API_lol.Controller;
+
 
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiVersion("1.0")]
 [ApiController]
-public class SkinControllers : ControllerBase
+public class SkinController : ControllerBase
 {
     private readonly IDataManager _dataManager;
     private readonly ILogger<ChampionController> _logger;
@@ -20,7 +22,7 @@ public class SkinControllers : ControllerBase
     /// <param name="dataManager"></param>
     /// <param name="logger"></param>
     /// <param name="configuration"></param>
-    public SkinControllers(IDataManager dataManager, ILogger<ChampionController> logger)
+    public SkinController(IDataManager dataManager, ILogger<ChampionController> logger)
     {
         _dataManager = dataManager;
         _logger = logger;
@@ -36,7 +38,7 @@ public class SkinControllers : ControllerBase
     public async Task<IActionResult> GetSkins()
     {
         var skins = await _dataManager.SkinsMgr.GetItems(0, await _dataManager.SkinsMgr.GetNbItems());
-        var skinsDTO = skins.Select(s => s.toDTO());
+        var skinsDTO = skins.Select(s => s.ToDTO());
         return Ok(skinsDTO);    
     }
     /// <summary>
@@ -57,7 +59,7 @@ public class SkinControllers : ControllerBase
             if (skin == null)
             {
                 _logger.LogWarning($"Aucun skin n'a été trouvé avec cette identifiant {idSkin}");
-                return StatusCode(StatusCodes.Status400BadRequest);
+                return BadRequest($"Aucun skin n'a été trouvé avec cette identifiant {idSkin}");
             }
             var result = await _dataManager.SkinsMgr.DeleteItem(skin);
             return Ok(result);
@@ -68,26 +70,27 @@ public class SkinControllers : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
-
+    
     /// <summary>
     /// Permet de trouver le skin correspondant au champion à partir de id du champion et du skin 
     /// </summary>
     /// <param name="idChamp">l'id du champion</param>
     /// <param name="idSkin">l'id du skin</param>
     /// <returns></returns>
-    [HttpGet("/champions/{idChamp}/skins/{idSkin}")]
+    [HttpGet("/Champion/{idChamp}/Skin/{idSkin}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SkinDTO))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetChampionSkinById(int idChamp, int idSkin)
     {
+        _logger.LogInformation($"Appel API : GetChampionSkinById, idChamp : {idChamp}, idSkin : {idSkin}");
         var champion = await _dataManager.ChampionsMgr.GetById(idChamp);
         var skin = await _dataManager.SkinsMgr.GetById(idSkin);
         if (champion == null || skin == null)
         {
-            return StatusCode(StatusCodes.Status400BadRequest);
+            return BadRequest($"Aucun skin n'a été trouvé avec cette identifiant {idSkin} pour ce champion {idChamp}");
         }
         var championSkin = await _dataManager.SkinsMgr.GetItemByChampion(champion, skin);
-        return Ok(championSkin.toDTO());
+        return Ok(championSkin.ToDTO());
     }
     /// <summary>
     /// Permet de trouver toutes les skins qui ont le nom entré par le client
@@ -99,7 +102,34 @@ public class SkinControllers : ControllerBase
     public async Task<IActionResult> GetSkinByName(String name)
     {
         var skins = await _dataManager.SkinsMgr.GetItemsByName(name, 0, await _dataManager.SkinsMgr.GetNbItems());
-        var skinsDto = skins.Select(s => s.toDTO());
+        var skinsDto = skins.Select(s => s.ToDTO());
         return Ok(skinsDto);
+    }
+    
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SkinDTO))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> AddSkin([FromBody] SkinDTO skinDTO)
+    {
+        try
+        {
+            var skinModel = skinDTO.FromDTO();
+            if (skinModel == null)
+            {
+                _logger.LogWarning("Le skin est incorrect");
+                return NotFound("Le skin est incorrect");
+            }
+
+            var skinResult = await _dataManager.SkinsMgr.AddItem(skinModel);
+            var skinResultDto = skinResult.ToDTO();
+
+            return Ok(skinResultDto); 
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Une erreur s'est produite lors de l'ajout du champion");
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
     }
 }
