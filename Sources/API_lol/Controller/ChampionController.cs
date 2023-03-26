@@ -101,9 +101,9 @@ namespace API_lol.Controllers
             try
             {
                 var championModel = champion.FromDTO();
-                if (championModel == null)
+                if (championModel is null)
                 {
-                    _logger.LogWarning("Le champion est incorrecte");
+                    _logger.LogWarning("Le champion est incorrect");
                     return NotFound();
                 }
 
@@ -213,6 +213,15 @@ namespace API_lol.Controllers
             var lesSkinsDto = skins.Select(skins => skins.ToDTO());
 
             return Ok(lesSkinsDto);
+        }
+        
+        [HttpGet("Champion/count")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
+        public async Task<IActionResult> GetNbChampion(int idChampion)
+        {
+            var nbChampion = await _dataManager.ChampionsMgr.GetNbItems();
+
+            return Ok(nbChampion);
         }
     }
 }

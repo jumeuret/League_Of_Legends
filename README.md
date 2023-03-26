@@ -13,7 +13,7 @@ Le projet est disponible sur la branche 'master'. Il suffit de la cloner et d'in
 
 Cette partie consistait à réaliser une API RESTFull. Pour cela, nous avions à notre disposition un ensemble de classes déjà implémentées qui formaient notre modèle, ainsi que son diagramme de classe.
 
-À partir de ces éléments, nous avons donc déterminé quelles requêtes CRUD nous devions coder. Une fois que nous avions développé l'API, nous devions la consommer via une application MAUI fournit par nos professeurs, et une via une application Console, mais nous n'avons pas réussi à résoudre les problèmes de changement de versions, et avons manqué de temps, ce qui explique l'absence du second et celle de la liaison avec le premier.
+À partir de ces éléments, nous avons donc déterminé quelles requêtes CRUD nous devions coder. Une fois que nous avions développé l'API, nous devions la consommer via une application MAUI fournit par nos professeurs, et une via une application Console, mais nous n'avons pas réussi à résoudre les problèmes de changement de versions, et avons manqué de temps, ce qui explique l'absence de liens entre l'application mobile et l'API. 
 
 
 L'implémentation des requêtes CRUD nous a amenées à réfléchir aux différents codes de retours que devrait renvoyer notre API. Également, nous devions respecter les règles de routage pour avoir une API RESTfull et utiliser les logs, car ils permettent, en cas d'erreur, d'indiquer précisément aux clients ce qu'il s'est passé. Nous avons également tenté d'utiliser les fichiers de configuration, mais les problèmes de Déploiement Continu nous en ont empêché.

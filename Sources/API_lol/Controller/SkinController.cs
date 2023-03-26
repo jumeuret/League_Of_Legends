@@ -1,14 +1,15 @@
-﻿using API_lol.Mapper;
+﻿using API_lol.Controllers;
+using API_lol.Mapper;
 using DTO;
 using Microsoft.AspNetCore.Mvc;
 using Model;
 using StubLib;
 
-namespace API_lol.Controllers;
+namespace API_lol.Controller;
 
 [Route("[controller]")]
 [ApiController]
-public class SkinControllers : ControllerBase
+public class SkinController : ControllerBase
 {
     private readonly IDataManager _dataManager;
     private readonly ILogger<ChampionController> _logger;
@@ -20,7 +21,7 @@ public class SkinControllers : ControllerBase
     /// <param name="dataManager"></param>
     /// <param name="logger"></param>
     /// <param name="configuration"></param>
-    public SkinControllers(IDataManager dataManager, ILogger<ChampionController> logger)
+    public SkinController(IDataManager dataManager, ILogger<ChampionController> logger)
     {
         _dataManager = dataManager;
         _logger = logger;
@@ -66,7 +67,7 @@ public class SkinControllers : ControllerBase
     }
 
     
-    [HttpGet("/champions/{idChamp}/skins/{idSkin}")]
+    [HttpGet("/Champion/{idChamp}/Skin/{idSkin}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SkinDTO))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetChampionSkinById(int idChamp, int idSkin)
