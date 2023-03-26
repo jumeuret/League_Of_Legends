@@ -124,7 +124,7 @@ public class skinManager : IGenericDataManager<Skin>
     {
         using (var context = new ApplicationDbContext())
         {
-            var skinEntity = context.SkinSet.SingleOrDefault(s => s.Champion == champion && s.Id == skin.Id);
+            var skinEntity = context.SkinSet.SingleOrDefault(s => s.ChampionEntity.ToChampion() == champion && s.Id == skin.Id);
             return Task.FromResult(skinEntity.ToSkin());
         }
     }

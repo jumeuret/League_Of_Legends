@@ -13,5 +13,5 @@ public class SkillEntity
     public string Name { get; set; }
     public string? Description { get; set; }
     public string? Type { get; set; }
-    public ChampionEntity Champion { get; set; }
+    public ChampionEntity ChampionEntity { get; set; }
 }

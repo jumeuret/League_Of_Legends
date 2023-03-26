@@ -21,7 +21,7 @@ public static class SkinMapper
 
     public static Skin ToSkin(this SkinEntity skinEntity)
     {
-        var skin = new Skin(skinEntity.Id, skinEntity.Name, skinEntity.Champion, skinEntity.Price,skinEntity.Icon, skinEntity.Image, skinEntity.Description);
+        var skin = new Skin(skinEntity.Id, skinEntity.Name, skinEntity.ChampionEntity.ToChampion(), skinEntity.Price,skinEntity.Icon, skinEntity.Image, skinEntity.Description);
         return skin;
     }
 }

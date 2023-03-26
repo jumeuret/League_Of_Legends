@@ -24,7 +24,7 @@ public class ChampionEntityWithStub : ApplicationDbContext
             new { Id = 4, ChampionId = 1, Name = "jj", Description = "truc", Price = (float)11.5 },
             new { Id = 5, ChampionId = 1, Name = "ll", Description = "truc", Price = (float)11.5 }
         );
-        modelBuilder.Entity<ChampionEntity>().HasMany(c => c.Skins).WithOne(s => s.Champion);
+        modelBuilder.Entity<ChampionEntity>().HasMany(c => c.Skins).WithOne(s => s.ChampionEntity);
 
         modelBuilder.Entity<SkillEntity>().Property<int>("ChampionId");
         modelBuilder.Entity<SkillEntity>().HasData(
@@ -34,7 +34,7 @@ public class ChampionEntityWithStub : ApplicationDbContext
             new { Id = 4, ChampionId = 1, Name = "jj", Description = "truc", Type = "machin" },
             new { Id = 5, ChampionId = 1, Name = "ll", Description = "truc", Type = "machin" }
         );
-        modelBuilder.Entity<ChampionEntity>().HasMany(c => c.Skills).WithOne(s => s.Champion);
+        modelBuilder.Entity<ChampionEntity>().HasMany(c => c.Skills).WithOne(s => s.ChampionEntity);
 
         modelBuilder.Entity<CharacteristicsEntity>().Property<ICollection<ChampionEntity>>("ChampionId");
         modelBuilder.Entity<CharacteristicsEntity>().HasData(
