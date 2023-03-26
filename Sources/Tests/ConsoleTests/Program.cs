@@ -254,10 +254,11 @@ namespace ConsoleTests
 						champion.AddSkill(skill);
 						break;
 					case 2:
+						int skinId = ReadAnInt("Please enter the skin id:");
 						string skinName = ReadAString("Please enter the skin name:");
 						string skinDescription = ReadAString("Please enter the skin description:");
 						float skinPrice = ReadAFloat("Please enter the price of this skin:");
-						Skin skin = new Skin(skinName, champion, skinPrice, description: skinDescription);
+						Skin skin = new Skin(skinId, skinName, champion, skinPrice, description: skinDescription);
 						break;
 					case 3:
 						string characteristic = ReadAString("Please enter the characteristic:");
