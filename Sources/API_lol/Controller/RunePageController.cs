@@ -11,8 +11,8 @@ namespace API_lol.Controllers
     /// <summary>
     /// Controller de la classe RunePage contenant différentes méthodes CRUD
     /// </summary>
-    [Route("api/v{version:apiVersion}/[controller]")]
-    [ApiVersion("1.0")]
+    [Route("api/[controller]")]
+    //[ApiVersion("1.0")]
     [ApiController]
     public class RunePageController : ControllerBase
     {

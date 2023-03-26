@@ -25,13 +25,13 @@ if (app.Environment.IsDevelopment())
 }
 
 // API Version
-builder.Services.AddApiVersioning(opt =>
-{
-    opt.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
-    opt.AssumeDefaultVersionWhenUnspecified = true;
-    opt.ReportApiVersions = true;
-    opt.ApiVersionReader = ApiVersionReader.Combine(new UrlSegmentApiVersionReader());
-});
+// builder.Services.AddApiVersioning(opt =>
+// {
+//     opt.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
+//     opt.AssumeDefaultVersionWhenUnspecified = true;
+//     opt.ReportApiVersions = true;
+//     opt.ApiVersionReader = ApiVersionReader.Combine(new UrlSegmentApiVersionReader());
+// });
 
 app.UseHttpsRedirection();
 
