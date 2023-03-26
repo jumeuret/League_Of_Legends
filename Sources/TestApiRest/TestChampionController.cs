@@ -67,8 +67,8 @@ public class TestChampionController
         Assert.Equal(6,pageDto.Data.Count());
         
     }
-    /*
-    [Fact]
+    
+    /*[Fact]
     public async void Test_GetChampionReturnNotFoundResult()
     {
         //Arrange 
@@ -82,7 +82,7 @@ public class TestChampionController
         Assert.NotNull(objectResult);
         
     }
-    *//*
+
     [Fact]
     public async void Test_GetChampionById_ReturnTheChampion()
     {
@@ -102,7 +102,6 @@ public class TestChampionController
         Assert.Equal(champion, expectedChampion);
     }
     
-
     [Fact]
     public async void Test_GetChampionById_ReturnOkResult()
     {
@@ -119,7 +118,8 @@ public class TestChampionController
         Assert.Equal(championResult, objectResult);
         
     }
-    /*[Fact]
+
+    [Fact]
     public async void Test_GetChampionByIdReturnNotFoundResult()
     {
         //Arrange 
@@ -134,7 +134,6 @@ public class TestChampionController
         Assert.IsType<NotFoundResult>(objectResult);
         
     }
-    */
     [Fact]
     public async void Test_AddChampionReturnOkResult()
     {
@@ -152,7 +151,7 @@ public class TestChampionController
         Assert.Equal(championResult, objectResult);
     }
     
-    /*[Fact]
+    [Fact]
     public async void Test_AddChampionReturnNotFoundResult()
     {
         
@@ -167,9 +166,9 @@ public class TestChampionController
         // Assert
         Assert.NotNull(objectResult);
         Assert.Equal(championResult, objectResult);
-    }*/
+    }
     
-    /*[Fact]
+    [Fact]
     public async void Test_AddChampionReturnAllChampion()
     {
         
@@ -190,9 +189,9 @@ public class TestChampionController
         Assert.Equal(championResultDto.Name, championDTO.Name);
         Assert.Equal(championResultDto.Bio, championDTO.Bio);
         Assert.Equal(championResultDto.Icon, championDTO.Icon);
-    }*/
+    }
     
-    /*[Fact]
+    [Fact]
     public async void Test_DeleteChampionReturnNotFoundResult()
     {
         
@@ -222,9 +221,9 @@ public class TestChampionController
         // Assert
         Assert.NotNull(objectResult);
         Assert.Equal(championResult, objectResult);
-    }*/
+    }
     
-    /*[Fact]
+    [Fact]
     public async void Test_DeleteChampionNotReturnChampionMatchinWithId()
     {
         
@@ -331,6 +330,6 @@ public class TestChampionController
         Assert.NotNull(result);
         Assert.Equal(newResult, champion);
         Assert.Equal(listchampionsResultDto,champion);
-    }*/
-
+    }
+    */
 }

@@ -1,5 +1,6 @@
 ﻿using Entity_Framework.Mapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Model;
 using Shared;
 
@@ -7,16 +8,21 @@ namespace Entity_Framework;
 
 public class ChampionManager : IGenericDataManager<Champion>
 {
+    private readonly ILogger<ChampionManager> _logger;
     public Task<int> GetNbItems()
     {
-        throw new NotImplementedException();
+        using (var context = new ApplicationDbContext())
+        {
+            var nombreItem = context.ChampionSet.Count();
+            return Task.FromResult(nombreItem);
+        }
     }
 
     public Task<Champion> GetById(int id)
     {
         using (var context = new ApplicationDbContext())
         {
-            var championEntity = context.ChampionSet.Single(c => c.Id == id);
+            var championEntity = context.ChampionSet.SingleOrDefault (c => c.Id == id);
             return Task.FromResult(championEntity.ToChampion());
         }
     }
@@ -43,8 +49,10 @@ public class ChampionManager : IGenericDataManager<Champion>
         {
             var championOldEntity = oldItem.ToChampionEntity();
             var championNewEntity = newItem.ToChampionEntity();
-            var championUpdate = context.ChampionSet.Single(c => c == championNewEntity);
+            var championUpdate = context.ChampionSet.Single(c => c == championOldEntity);
             championUpdate = championNewEntity;
+            context.SaveChanges();
+
             return Task.FromResult(championUpdate.ToChampion());
         }
     }
@@ -55,19 +63,33 @@ public class ChampionManager : IGenericDataManager<Champion>
        {
             var championEntity = item.ToChampionEntity();
             var champion = context.ChampionSet.Add(championEntity);
+            context.SaveChanges();
+
             return Task.FromResult(champion.Entity.ToChampion());
        }
     } 
-     public Task<bool> DeleteItem(Champion item){
-         using (var context = new ApplicationDbContext())
+     public async Task<bool> DeleteItem(Champion item){
+         try
          {
-             var championEntity = item.ToChampionEntity();
-             var champion = context.ChampionSet.Remove(championEntity).Entity;
-             if (champion == championEntity)
+             using (var context = new ApplicationDbContext())
              {
-                 return Task.FromResult(true);
+                 var championEntity = item.ToChampionEntity();
+
+                 var champion = await context.ChampionSet.SingleOrDefaultAsync(c=> c.Id == championEntity.Id);
+                 if (champion == null)
+                 {
+                     return false;
+                 }
+                 context.ChampionSet.Remove(championEntity);
+                 context.SaveChanges();
+
+                 return true;
              }
-             return Task.FromResult(false);
          }
+         catch (Exception e)
+         {
+             return false; 
+         }
+        
     }
 }

@@ -24,7 +24,7 @@ public class RunePageEntityDBContextWithStub : ApplicationDbContext
             new { Id = 4, ChampionId = 1, Name = "jj", Description = "truc", Family = "chose", Icon = "bidule", Image = "chouette", Category = "machin" },
             new { Id = 5, ChampionId = 1, Name = "ll", Description = "truc", Family = "chose", Icon = "bidule", Image = "chouette", Category = "machin" }
         );
-        modelBuilder.Entity<RunePageEntity>().HasMany(c => c.Runes).WithMany(s => s.RunePages);
+        //modelBuilder.Entity<RunePageEntity>().HasMany(c => c.Runes).WithMany(s => s.RunePages);
         
         base.SaveChanges();
     }

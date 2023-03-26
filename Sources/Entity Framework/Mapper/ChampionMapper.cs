@@ -8,6 +8,7 @@ public static class ChampionMapper
     {
         var championEntity = new ChampionEntity()
         {
+            Id = champion.Id,
             Name = champion.Name,
             Bio = champion.Bio,
             Class = champion.Class.ToString(),
@@ -55,12 +56,12 @@ public static class ChampionMapper
 
     public static Champion ToChampion(this ChampionEntity champEntity)
     {
-        var champion = new Champion(champEntity.Name, (ChampionClass)Enum.Parse(typeof(ChampionClass), champEntity.Class), champEntity.Icon, champEntity.Image, champEntity.Bio);
+        var champion = new Champion(champEntity.Id, champEntity.Name, (ChampionClass)Enum.Parse(typeof(ChampionClass), champEntity.Class), champEntity.Icon, champEntity.Image, champEntity.Bio);
         
         List<Skin> skins = new List<Skin>();
         foreach (SkinEntity skin in champEntity.Skins)
         {
-            skins.Add(new Skin(skin.Name, champion, skin.Price, skin.Icon, skin.Image, skin.Description));
+            skins.Add(new Skin(skin.Id, skin.Name, champion, skin.Price, skin.Icon, skin.Image, skin.Description));
         }
         
         foreach (SkillEntity skill in champEntity.Skills)

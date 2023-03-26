@@ -4,7 +4,7 @@ using Entity_Framework;
 
 namespace Entity_Framework;
 
-[Table("Characteristics")]
+[Table("Characteristic")]
 public class CharacteristicsEntity
 {
     [Key]
