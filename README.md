@@ -5,6 +5,10 @@ Ce projet a été réalisé en 2ème année de BUT en Informatique lors des cour
 ## Lancer notre projet
 
 Le projet est disponible sur la branch 'master'. Il suffit de la cloner et d'instaler les nugets necessaires au projet tel que les nugets concernant EntityFramework. 
+* Microsoft.EntityFrameworkCore
+* Microsoft.EntityFrameworkCore.Design
+* Microsoft.EntityFrameworkCore.SqlServer
+* Microsoft.EntityFrameworkCore.SqlServer.Design
 
 ## Consommation et développements de services
 
