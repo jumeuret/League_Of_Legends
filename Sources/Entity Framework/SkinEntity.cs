@@ -18,8 +18,8 @@ public class SkinEntity
     [Required]
     public float Price { get; set; }
     
-    public Champion Champion { get; set; }
-    
+    public ChampionEntity ChampionEntity { get; set; }
+
     public override string ToString()
     {
         return $"{Id}: {Name} {Description}, {Icon} {Image}, {Price}";

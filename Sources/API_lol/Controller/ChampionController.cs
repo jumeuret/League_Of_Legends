@@ -10,10 +10,10 @@ namespace API_lol.Controllers
 {
     [Route("api/champions")]
     [ApiController]
-    public class ChampionControllers : ControllerBase
+    public class ChampionController : ControllerBase
     {
         private readonly IDataManager _dataManager;
-        private readonly ILogger<ChampionControllers> _logger;
+        private readonly ILogger<ChampionController> _logger;
         private readonly IConfiguration _configuration;
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace API_lol.Controllers
         /// <param name="dataManager"></param>
         /// <param name="logger"></param>
         /// <param name="configuration"></param>
-        public ChampionControllers(IDataManager dataManager, ILogger<ChampionControllers> logger)
+        public ChampionController(IDataManager dataManager, ILogger<ChampionController> logger)
         {
             _dataManager = dataManager;
             _logger = logger;
@@ -37,6 +37,7 @@ namespace API_lol.Controllers
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PageDTO<IEnumerable<ChampionDTO>>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetChampions([FromQuery] int index = 0, int count = 10)
         {
             if (count > 50)
@@ -67,7 +68,7 @@ namespace API_lol.Controllers
         /// <response code="404">Valeur manquante ou non valide pour le champion</response>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetChampionById(int id)
         {
             // _logger.LogInformation("Méthode GetById");
@@ -76,24 +77,11 @@ namespace API_lol.Controllers
             var leChampion = await _dataManager.ChampionsMgr.GetById(id);
             if (leChampion == null)
             {
-                return NotFound();
+                return Unauthorized();
             }
 
             var leChampionDto = leChampion.ToDTO();
             return Ok(leChampionDto);
-        }
-
-        //getNbChampions()
-        /// <summary>
-        /// Comptage du nombre de champions 
-        /// </summary>
-        /// <response code="200">Le champion nombre de champion (0 minimum)</response>
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
-        public async Task<IActionResult> GetNumberOfChampions()
-        {
-            var nombreChampion = await _dataManager.ChampionsMgr.GetNbItems();
-            return Ok(nombreChampion);
         }
 
         /// <summary>
@@ -230,6 +218,5 @@ namespace API_lol.Controllers
         }
     }
 }
-
 
 
