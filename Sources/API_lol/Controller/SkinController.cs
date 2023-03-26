@@ -9,8 +9,8 @@ namespace API_lol.Controller;
 /// <summary>
 /// Controler de la classe Skin contenant différentes méthodes CRUD
 /// </summary>
-[Route("api/v{version:apiVersion}/[controller]")]
-[ApiVersion("1.0")]
+[Route("api/[controller]")]
+//[ApiVersion("1.0")]
 [ApiController]
 public class SkinController : ControllerBase
 {
