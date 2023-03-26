@@ -13,10 +13,17 @@ namespace API_lol.Mapper
             return championDTO;
         }
 
-        public static Champion FromDTO(this ChampionDTO champDTO)
+        public static Champion? FromDTO(this ChampionDTO champDTO)
         {
-            var champion = new Champion(champDTO.Id, champDTO.Name, (ChampionClass)Enum.Parse(typeof(ChampionClass), champDTO.Class), champDTO.Icon, champDTO.Image, champDTO.Bio);
-            return champion;
+            try
+            {
+                var champion = new Champion(champDTO.Id, champDTO.Name, (ChampionClass)Enum.Parse(typeof(ChampionClass), champDTO.Class), champDTO.Icon, champDTO.Image, champDTO.Bio);
+                return champion;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
     }
 }

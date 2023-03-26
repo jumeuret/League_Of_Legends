@@ -13,7 +13,7 @@ namespace TestMappers
         [InlineData(0, "Test2", "Je suis la bio du test2", "Je suis l_icone du test2", "Je suis l_image du test2", "Unknown")]
         public void TestToDTO(int id, string nom, string bio, string icone, string image, string classe)
         {
-            var championModel = new Champion(nom, (ChampionClass)Enum.Parse(typeof(ChampionClass), classe), icone, image, bio);
+            var championModel = new Champion(id, nom, (ChampionClass)Enum.Parse(typeof(ChampionClass), classe), icone, image, bio);
             var championDTO = championModel.ToDTO() as ChampionDTO;
             
             Assert.NotNull(championDTO);
