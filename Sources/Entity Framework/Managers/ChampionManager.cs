@@ -6,6 +6,10 @@ using Shared;
 
 namespace Entity_Framework;
 
+/// <summary>
+/// Cette classe sert à implémenter des méthodes afin que les données sur les Champions soient synchronisées avec leur table
+/// dans la base de données en fonction de ce que le client décide de  faire (récupérer des champions, en supprimer, etc)
+/// </summary>
  public class ChampionManager : IChampionsManager
 {
     public Task<int> GetNbItems()

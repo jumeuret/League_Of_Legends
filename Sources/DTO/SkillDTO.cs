@@ -1,5 +1,9 @@
 ﻿namespace DTO;
 
+/// <summary>
+/// Classe correspondant à un Skill, elle sert à transférer des données entre l'API et l'application cliente
+/// Elle permet de limiter les données échangées en ne renvoyant que les informations utiles au client
+/// </summary>
 public class SkillDTO
 {
     public string Name { get; set; }

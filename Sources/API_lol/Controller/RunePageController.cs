@@ -1,4 +1,3 @@
-using System.Collections;
 using API_lol.Mapper;
 using DTO;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +8,9 @@ using Model;
 
 namespace API_lol.Controllers
 {
-
+    /// <summary>
+    /// Controller de la classe RunePage contenant différentes méthodes CRUD
+    /// </summary>
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
     [ApiController]
@@ -20,11 +21,11 @@ namespace API_lol.Controllers
         private readonly IConfiguration _configuration;
 
         /// <summary>
-        /// Constructeur de la classe RunePageController
+        /// Constructeur de la classe RunePageController.
         /// </summary>
-        /// <param name="dataManager"></param>
-        /// <param name="logger"></param>
-        /// <param name="configuration"></param>
+        /// <param name="dataManager">Iterface permettant d'accéder aux ressources de l'application.</param>
+        /// <param name="logger">Le logger utilisé pour l'enregistrement des messages de journalisation.</param>
+        /// <param name="configuration">La configuration de l'application.</param>
         public RunePageController(IDataManager dataManager)
         {
             _dataManager = dataManager;
@@ -33,11 +34,11 @@ namespace API_lol.Controllers
         }
 
         /// <summary>
-        /// Permet de lister toutes les runePages
+        /// Permet de lister toutes les pages de runes
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="count"></param>
-        /// <returns></returns>
+        /// <param name="index">L'indice de la première page de runes à récupérer.</param>
+        /// <param name="count">Le nombre de pages de runes à récupérer.</param>
+        /// <returns>Une liste contenant les pages de runes correspondantes à la plage d'indices spécifiée.</returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PageDTO<IEnumerable<RunePageDTO>>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

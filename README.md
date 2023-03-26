@@ -4,21 +4,28 @@ Ce projet a été réalisé en 2ème année de BUT en Informatique lors des cour
 
 ## Lancer notre projet
 
-Le projet est disponible sur la branch 'master'. Il suffit de la cloner et d'instaler les nugets necessaires au projet tel que les nugets concernant EntityFramework. 
+Le projet est disponible sur la branch 'master'. Il suffit de la cloner et d'instaler les nugets necessaires au projet tel que les nugets concernant le dossier Entity Framework : 
 * Microsoft.EntityFrameworkCore
 * Microsoft.EntityFrameworkCore.Design
-* Microsoft.EntityFrameworkCore.SqlServer
-* Microsoft.EntityFrameworkCore.SqlServer.Design
+* Microsoft.EntityFrameworkCore.Sqlite
+* Microsoft.EntityFrameworkCore.Sqlite.Design
+
+Afin de permettre le versionning de l'Api, nous avons également une nuget à installer concernant le dossier API_lol: 
+* Microsoft.AspNet.WebApi.Versionning
 
 ## Consommation et développements de services
 
 Cette partie consistait à réaliser une API RESTFull. Pour cela, nous avions à notre disposition un diagramme de classe, et c'était à nous de savoir qu'elle requête CRUD implémenter. Une fois que nous avions développée l'API, nous devions la consommer via une application MAUI fournit par nos professeurs, mais par manque de temps nous ne l'avons pas fait. 
+
+Nous avons implémenter les classes du modèle en tant que DTO (Data Objet Transfert) ce qui est necessaire afin de s'assurer que les informations sensibles (ex : les mots de passe) soient masqués aux clients.
 
 L'implémentation des requêtes CRUD nous a amené à réfléchir au code de retour que nous indiquons à nos clients. Egalement, nous devions respecter les règles de routage et utiliser les logs car ils permettent, en cas d'erreur, d'indiquer précisément aux clients ce qu'il s'est passé.
 
 ## Entity framework
 
 Entity framework est un outil de mappage objet-relationnel (ORM), permettant de créer des bases de données à partir de classes appelé entité qui seront les tables de notre BDD et les attributs des classes qui seront les colonnes. C'est donc un gain de temps pour les développeurs car nous avons simplement à ajouter des migrations grâce à la commande 'dotnet ef add migrations' puis à les appliquer à notre base de données via 'dotnet ef database update'. 
+
+Nous avons implémenter les classes du modèle en tant que des entités afin de créer nos tables dans notre base de données, et ajouter des précisions sur les attributs de la table. Egalement, cela permet de séparer la logique métier de la logique de persistance. 
 
 Dans cette partie, nous avons aussi implémenter les méthodes de l'interface IDataManager pour les entités Champions et Skins afin de faire la liaison avec l'API. En effet, au départ notre API aviat en injection de dépendance IDataManager faisant référence au stub qui nous était fournit. Ensuite, le mieux était d'injecter notre base de données pour faire persisté nos données, c'est à-dire que si les clients supprimes le champion qui possède l'id 1, alors cette modification sera conservée.
 
@@ -32,8 +39,12 @@ C'est la classe principal du modèle. Elle possède divers attributs comme un no
 
 ### La classe Rune
 
-C'est aussi une classe que nous avons considéré comme étant à part dans le modèle puisqu'elle n'est pas reliée avec la classe Champion, mais avec runePage car une rune est contenu dans une page et une page possède plusieur
+C'est aussi une classe que nous avons considéré comme étant à part dans le modèle puisqu'elle n'est pas reliée avec la classe Champion, mais avec runePage car une rune est contenu dans une page et une page possède plusieurs.
 
+### Liaison entre l'Api et la base de données
+
+Pour réaliser la liaison entre l'api et la base de données, nous avons implémenter des classes : ChampionManager et SkinsManager.
+Il suffit alors d'injecter la classe EFManager pour que la liason se fasse. Ainsi, dans le fichier program.cs d qui se trouve dans le dossier API_lol, vous pouvez décommentez la ligne 13 et commentez celle juste au dessus. 
 
 # prepaLoL
 
