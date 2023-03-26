@@ -8,7 +8,7 @@ using Model;
 
 namespace API_lol.Controllers
 {
-    [Route("api/champions")]
+    [Route("[controller]")]
     [ApiController]
     public class ChampionController : ControllerBase
     {
@@ -109,10 +109,8 @@ namespace API_lol.Controllers
 
                 var championResult = await _dataManager.ChampionsMgr.AddItem(championModel);
                 var championResultDto = championResult.ToDTO();
-                var truc = _dataManager.ChampionsMgr.GetById(championResultDto.Id);
 
-                return CreatedAtAction(nameof(GetChampionById),
-                    new { Id = championResultDto.Id, championResultDto }); //CreatedAtAction = Code 20
+                return Ok(championResultDto);
             }
             catch (Exception e)
             {
@@ -212,7 +210,7 @@ namespace API_lol.Controllers
 
             var skins = await _dataManager.SkinsMgr.GetItemsByChampion(champion, 0,
                 await _dataManager.SkinsMgr.GetNbItems());
-            var lesSkinsDto = skins.Select(skins => skins.toDTO());
+            var lesSkinsDto = skins.Select(skins => skins.ToDTO());
 
             return Ok(lesSkinsDto);
         }
