@@ -10,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IDataManager, StubData>();
+// -> builder.Services.AddScoped<IDataManager, EFManager>();
 
 //AddScoped : l'instance de l'objet est supprimée et rechargée en memoire --> les objets ne sont donc pas supprimés, modifiés,etc
 
