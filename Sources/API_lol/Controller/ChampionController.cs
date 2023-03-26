@@ -19,8 +19,8 @@ namespace API_lol.Controllers
         /// <summary>
         /// Constructeur de la classe ChampionControllers
         /// </summary>
-        /// <param name="dataManager"></param>
-        /// <param name="logger"></param>
+        /// <param name="dataManager">/param>
+        /// <param name="logger"> </param>
         /// <param name="configuration"></param>
         public ChampionController(IDataManager dataManager, ILogger<ChampionController> logger)
         {
@@ -30,7 +30,7 @@ namespace API_lol.Controllers
         }
 
         /// <summary>
-        /// 
+        ///  Permet de lister tous les champions
         /// </summary>
         /// <param name="index"></param>
         /// <param name="count"></param>

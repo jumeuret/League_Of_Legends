@@ -5,7 +5,7 @@ using Shared;
 
 namespace Entity_Framework;
 
-public class skinManager : IGenericDataManager<Skin>
+public class SkinManager : EFManager<Champion>, ISkinsManager
 {
     public Task<int> GetNbItems()
     {
@@ -118,6 +118,17 @@ public class skinManager : IGenericDataManager<Skin>
             var skinEntity = context.SkinSet.SingleOrDefault (s => s.Id == id);
             return Task.FromResult(skinEntity.ToSkin());
         }
+    }
+
+    public Task<int> GetNbItemsByChampion(Champion? champion)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IEnumerable<Skin?>> GetItemsByChampion(Champion? champion, int index, int count, string? orderingPropertyName = null,
+        bool descending = false)
+    {
+        throw new NotImplementedException();
     }
 
     public Task<Skin?> GetItemByChampion(Champion champion, Skin skin)

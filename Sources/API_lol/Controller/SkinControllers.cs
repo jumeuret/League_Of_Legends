@@ -27,6 +27,10 @@ public class SkinControllers : ControllerBase
         // _configuration = configuration;
     }
 
+    /// <summary>
+    /// Permet de lister tous les skins 
+    /// </summary>
+    /// <returns></returns>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SkinDTO))]
     public async Task<IActionResult> GetSkins()
@@ -65,7 +69,12 @@ public class SkinControllers : ControllerBase
         }
     }
 
-    
+    /// <summary>
+    /// Permet de trouver le skin correspondant au champion à partir de id du champion et du skin 
+    /// </summary>
+    /// <param name="idChamp">l'id du champion</param>
+    /// <param name="idSkin">l'id du skin</param>
+    /// <returns></returns>
     [HttpGet("/champions/{idChamp}/skins/{idSkin}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SkinDTO))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -80,7 +89,11 @@ public class SkinControllers : ControllerBase
         var championSkin = await _dataManager.SkinsMgr.GetItemByChampion(champion, skin);
         return Ok(championSkin.toDTO());
     }
-
+    /// <summary>
+    /// Permet de trouver toutes les skins qui ont le nom entré par le client
+    /// </summary>
+    /// <param name="name">Le nom des skins à trouver</param>
+    /// <returns>La liste des skins qui possèdent le nom</returns>
     [HttpGet("{name}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SkinDTO))]
     public async Task<IActionResult> GetSkinByName(String name)

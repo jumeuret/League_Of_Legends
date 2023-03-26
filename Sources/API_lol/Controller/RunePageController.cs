@@ -30,6 +30,12 @@ namespace API_lol.Controllers
             // _configuration = configuration;
         }
 
+        /// <summary>
+        /// Permet de lister toutes les runePages
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PageDTO<IEnumerable<RunePageDTO>>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

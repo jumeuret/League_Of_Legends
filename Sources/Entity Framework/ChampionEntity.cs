@@ -12,6 +12,9 @@ namespace Entity_Framework;
 
 
 /*La création du champion a été faite avec la fluente api*/
+/// <summary>
+/// Classe d'une entity champion
+/// </summary>
 public class ChampionEntity
 {
     public int Id { get; set; }

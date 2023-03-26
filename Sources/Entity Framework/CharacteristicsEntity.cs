@@ -4,6 +4,9 @@ using Entity_Framework;
 
 namespace Entity_Framework;
 
+/// <summary>
+/// Classe d'une entité characteristic
+/// </summary>
 [Table("Characteristic")]
 public class CharacteristicsEntity
 {
