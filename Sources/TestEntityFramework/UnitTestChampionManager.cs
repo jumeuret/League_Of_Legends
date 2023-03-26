@@ -8,7 +8,6 @@ namespace TestEntityFramework;
 
 public class UnitTestChampionManager
 {
-    private readonly EFManager parent;
     
     [Theory]
     [InlineData(10, "Test1", "Je suis la bio du test1", "Je suis l_icone du test1", "Je suis l_image du test1", "Marksman")]
@@ -33,7 +32,7 @@ public class UnitTestChampionManager
         using (var context = new ApplicationDbContext(options))
         {
             context.Database.EnsureCreated();
-            var champManager = new ChampionManager(parent);
+            var champManager = new ChampionManager();
 
             var result = champManager.GetById(id).Result;
             
@@ -108,7 +107,7 @@ public class UnitTestChampionManager
         {
             context.Database.EnsureCreated();
             var champion = new Champion(id, name,(ChampionClass)Enum.Parse(typeof(ChampionClass), "Assassin"), icon, image, bio);
-            var championManager = new ChampionManager(parent);
+            var championManager = new ChampionManager();
             var result =  championManager.AddItem(champion).Result;
             context.SaveChanges(); 
             Assert.Equal(nb, context.ChampionSet.Count());

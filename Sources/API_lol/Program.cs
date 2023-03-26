@@ -1,3 +1,4 @@
+using Entity_Framework;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Model;
 using StubLib;
@@ -10,8 +11,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<IDataManager, StubData>(); 
-//builder.Services.AddScoped<IDataManager, EFManager>();
+//builder.Services.AddSingleton<IDataManager, StubData>(); 
+builder.Services.AddScoped<IDataManager, EFManager>();
 
 //AddScoped : l'instance de l'objet est supprimée et rechargée en memoire --> les objets ne sont donc pas supprimés, modifiés,etc
 

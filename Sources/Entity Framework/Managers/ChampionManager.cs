@@ -12,12 +12,8 @@ namespace Entity_Framework;
 /// </summary>
  public class ChampionManager : IChampionsManager
 {
-    private readonly EFManager parent;
 
-    public ChampionManager(EFManager parent)
-    {
-        this.parent = parent;
-    }
+   
     public Task<int> GetNbItems()
     {
         using (var context = new ApplicationDbContext())
