@@ -21,9 +21,9 @@ public class SkinController : ControllerBase
     /// <summary>
     /// Constructeur de la classe ChampionControllers
     /// </summary>
-    /// <param name="dataManager">Iterface permettant d'accéder aux ressources de l'application.</param>
-    /// <param name="logger">Le logger utilisé pour l'enregistrement des messages de journalisation.</param>
-    /// <param name="configuration">La configuration de l'application.</param>
+    /// <param name="dataManager">Iterface permettant d'accéder aux ressources de l'application</param>
+    /// <param name="logger">Le logger utilisé pour l'enregistrement des messages de journalisation</param>
+    /// <param name="configuration">La configuration de l'application</param>
     public SkinController(IDataManager dataManager, ILogger<ChampionController> logger)
     {
         _dataManager = dataManager;

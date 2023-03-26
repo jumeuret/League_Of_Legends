@@ -11,14 +11,14 @@ namespace Entity_Framework;
 /// </summary>
 public class EFManager: IDataManager
 {
-    private readonly DbContext _dbContext;
+    protected HttpClient HttpClient { get; }    
     private IChampionsManager championsMgr;
     private ISkinsManager skinsMgr;
 
-    public EFManager()
+    public EFManager(HttpClient httpClient)
     {
-        ChampionsMgr = new ChampionManager();
-        SkinsMgr = new SkinManager();
+        ChampionsMgr = new ChampionManager(this);
+        SkinsMgr = new SkinManager(this);
     }
     public IChampionsManager ChampionsMgr { get; }
     public ISkinsManager SkinsMgr { get; }
