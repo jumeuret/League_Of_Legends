@@ -6,7 +6,9 @@ using Model;
 
 namespace API_lol.Controller;
 
-
+/// <summary>
+/// Controler de la classe Skin contenant différentes méthodes CRUD
+/// </summary>
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiVersion("1.0")]
 [ApiController]
@@ -19,9 +21,9 @@ public class SkinController : ControllerBase
     /// <summary>
     /// Constructeur de la classe ChampionControllers
     /// </summary>
-    /// <param name="dataManager"></param>
-    /// <param name="logger"></param>
-    /// <param name="configuration"></param>
+    /// <param name="dataManager">Iterface permettant d'accéder aux ressources de l'application.</param>
+    /// <param name="logger">Le logger utilisé pour l'enregistrement des messages de journalisation.</param>
+    /// <param name="configuration">La configuration de l'application.</param>
     public SkinController(IDataManager dataManager, ILogger<ChampionController> logger)
     {
         _dataManager = dataManager;
@@ -105,7 +107,11 @@ public class SkinController : ControllerBase
         var skinsDto = skins.Select(s => s.ToDTO());
         return Ok(skinsDto);
     }
-    
+    /// <summary>
+    /// Permet d'ajouter un skin
+    /// </summary>
+    /// <param name="skinDTO">Le skinDTO à ajouter</param>
+    /// <returns>Le code retour correspondant à ce qu'il c'est passer pour informer le client</returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SkinDTO))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

@@ -1,4 +1,3 @@
-using System.Collections;
 using API_lol.Mapper;
 using DTO;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +7,9 @@ using Model;
 
 namespace API_lol.Controllers
 {
+    /// <summary>
+    /// Controller de la classe Champion contenant différentes méthodes CRUD
+    /// </summary>
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
     [ApiController]
@@ -20,9 +22,9 @@ namespace API_lol.Controllers
         /// <summary>
         /// Constructeur de la classe ChampionControllers
         /// </summary>
-        /// <param name="dataManager">/param>
-        /// <param name="logger"> </param>
-        /// <param name="configuration"></param>
+        /// <param name="dataManager">Iterface permettant d'accéder aux ressources de l'application.</param>
+        /// <param name="logger">Le logger utilisé pour l'enregistrement des messages de journalisation.</param>
+        /// <param name="configuration">La configuration de l'application.</param>
         public ChampionController(IDataManager dataManager, ILogger<ChampionController> logger)
         {
             _dataManager = dataManager;
@@ -92,7 +94,6 @@ namespace API_lol.Controllers
         /// <response code="200">Le champion a bien été insérré</response>
         /// <response code="404">Valeur manquante ou non valide pour le champion</response>
         /// <response code="500">Un problème s'est produit sur le serveur</response>
-
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -127,7 +128,6 @@ namespace API_lol.Controllers
         /// <response code="200">Le champion est supprimé</response>
         /// <response code="404">Valeur manquante ou non valide pour le champion</response>
         /// <response code="500">Un problème s'est produit sur le serveur</response>
-
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -162,7 +162,6 @@ namespace API_lol.Controllers
         /// <response code="200">Le champions a bien été modifié</response>
         /// <response code="404">Valeur manquante ou non valide pour le champion</response>
         /// <response code="500">Un problème s'est produit sur le serveur</response>
-
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -192,10 +191,12 @@ namespace API_lol.Controllers
         }
 
         /// <summary>
-        /// Récupération de la liste des skins d'un champion
+        /// Récupération de la liste des skins d'un champion spécifié
         /// </summary>
         /// <param name="idChampion">l'identitifiant du champion auquel appartient les kins</param>
         /// <returns>La liste de skins du champion</returns>
+        /// <response code="200">Le champion a été récupéré</response>
+        /// <response code="404">Valeur manquante ou non valide pour le champion</response>
         [HttpGet("{idChampion}/skin")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -216,9 +217,15 @@ namespace API_lol.Controllers
             return Ok(lesSkinsDto);
         }
         
+
+        /// <summary>
+        /// Permet de récupérer le nombre de Champions existants
+        /// </summary>
+        /// <returns></returns>
+        /// <response code="200">Retourne le nombre total de champions</response>
         [HttpGet("Champion/count")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
-        public async Task<IActionResult> GetNbChampion(int idChampion)
+        public async Task<IActionResult> GetNbChampion()
         {
             var nbChampion = await _dataManager.ChampionsMgr.GetNbItems();
 
