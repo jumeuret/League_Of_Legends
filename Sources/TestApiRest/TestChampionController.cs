@@ -7,7 +7,7 @@ using StubLib;
 
 namespace TestApiRest;
 
-public class TestChampion
+public class TestChampionController
 {
     private readonly ILogger<ChampionController> _logger;
 
@@ -49,30 +49,30 @@ public class TestChampion
         Assert.NotNull(objectResult);
         Assert.Equal(championsResult, objectResult);
     }
-    /*
+    
     [Fact]
     public async void Test_GetChampion_ReturnAllChampions()
     {
         // Arrange 
-        var  championController = new ChampionControllers(new StubData(), _logger);
+        var  championController = new ChampionController(new StubData(), _logger);
         
         // Act 
         var championsResult = await championController.GetChampions();
         var objectResult = championsResult as OkObjectResult;
-        var champions = objectResult?.Value as IEnumerable<ChampionDTO>;
+        var pageDto = objectResult?.Value as PageDTO<IEnumerable<ChampionDTO>>;
 
         // Assert 
         Assert.NotNull(objectResult);
-        Assert.NotNull(champions);
-        Assert.Equal(6,champions.Count());
+        Assert.NotNull(pageDto);
+        Assert.Equal(6,pageDto.Data.Count());
         
     }
-    */
-    /*[Fact]
+    /*
+    [Fact]
     public async void Test_GetChampionReturnNotFoundResult()
     {
         //Arrange 
-        var championController = new ChampionControllers(new StubData(), _logger);
+        var championController = new ChampionController(new StubData(), _logger);
         
         // Act
         var championsResult = await championController.GetChampions();
@@ -82,14 +82,14 @@ public class TestChampion
         Assert.NotNull(objectResult);
         
     }
-
+    *//*
     [Fact]
     public async void Test_GetChampionById_ReturnTheChampion()
     {
         // Arrange 
-        var  championController = new ChampionControllers(new StubData(), _logger);
+        var  championController = new ChampionController(new StubData(), _logger);
         int expeptedId = 1;
-        var expectedChampion = new ChampionDTO(1, "Akali", null, null);
+        var expectedChampion = new ChampionDTO(1, "Akali", null, null, null, null);
         
         // Act 
         var championResult = await championController.GetChampionById(expeptedId);
@@ -102,11 +102,12 @@ public class TestChampion
         Assert.Equal(champion, expectedChampion);
     }
     
+
     [Fact]
     public async void Test_GetChampionById_ReturnOkResult()
     {
         // Arrange 
-        var  championController = new ChampionControllers(new StubData(), _logger);
+        var  championController = new ChampionController(new StubData(), _logger);
         int expeptedId = 1;
         
         // Act 
@@ -118,8 +119,7 @@ public class TestChampion
         Assert.Equal(championResult, objectResult);
         
     }
-
-    [Fact]
+    /*[Fact]
     public async void Test_GetChampionByIdReturnNotFoundResult()
     {
         //Arrange 
@@ -133,14 +133,15 @@ public class TestChampion
         //Assert
         Assert.IsType<NotFoundResult>(objectResult);
         
-    }*/
-    /*[Fact]
+    }
+    */
+    [Fact]
     public async void Test_AddChampionReturnOkResult()
     {
         
         // Arrange 
-        var  championController = new ChampionControllers(new StubData(), _logger);
-        var championDTO = new ChampionDTO(10, "Biographie", "Icone", "Nom");
+        var  championController = new ChampionController(new StubData(), _logger);
+        var championDTO = new ChampionDTO(10, "Name","Biographie", "Classe","Icone", "Image");
         
         // Act
         var championResult = await championController.AddChampion(championDTO);
@@ -149,7 +150,7 @@ public class TestChampion
         // Assert
         Assert.NotNull(objectResult);
         Assert.Equal(championResult, objectResult);
-    }*/
+    }
     
     /*[Fact]
     public async void Test_AddChampionReturnNotFoundResult()

@@ -62,7 +62,7 @@ namespace API_lol.Controllers
         /// <response code="404">Valeur manquante ou non valide pour le champion</response>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChampionDTO))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetChampionById(int id)
         {
             // _logger.LogInformation("Méthode GetById");
@@ -71,7 +71,7 @@ namespace API_lol.Controllers
             var leChampion = await _dataManager.ChampionsMgr.GetById(id);
             if (leChampion == null)
             {
-                return NotFound();
+                return Unauthorized();
             }
 
             var leChampionDto = leChampion.ToDTO();
