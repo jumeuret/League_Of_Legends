@@ -8,6 +8,8 @@ namespace TestEntityFramework;
 
 public class UnitTestChampionManager
 {
+    private readonly EFManager parent;
+    
     [Theory]
     [InlineData(10, "Test1", "Je suis la bio du test1", "Je suis l_icone du test1", "Je suis l_image du test1", "Marksman")]
     public void ChampionManagerTest_GetById(int id, string name, string bio, string icon, string image, string classe)
@@ -31,7 +33,7 @@ public class UnitTestChampionManager
         using (var context = new ApplicationDbContext(options))
         {
             context.Database.EnsureCreated();
-            var champManager = new ChampionManager();
+            var champManager = new ChampionManager(parent);
 
             var result = champManager.GetById(id).Result;
             
@@ -94,6 +96,7 @@ public class UnitTestChampionManager
     [InlineData(10, "Test1", "Je suis la bio du test1", "Je suis l_icone du test1", "Je suis l_image du test1", "Fighter", 1)]
     public void championManagerTest_addItem(int id, string name, string bio, string icon, string image, string classe, int nb)
     {
+      
         var connection = new SqliteConnection("DataSource=:memory:");
         connection.Open();
         
@@ -105,7 +108,7 @@ public class UnitTestChampionManager
         {
             context.Database.EnsureCreated();
             var champion = new Champion(id, name,(ChampionClass)Enum.Parse(typeof(ChampionClass), "Assassin"), icon, image, bio);
-            var championManager = new ChampionManager();
+            var championManager = new ChampionManager(parent);
             var result =  championManager.AddItem(champion).Result;
             context.SaveChanges(); 
             Assert.Equal(nb, context.ChampionSet.Count());
