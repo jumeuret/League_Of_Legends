@@ -9,7 +9,8 @@ using Model;
 
 namespace API_lol.Controllers
 {
-    [Route("[runePages]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("1.0")]
     [ApiController]
     public class RunePageController : ControllerBase
     {

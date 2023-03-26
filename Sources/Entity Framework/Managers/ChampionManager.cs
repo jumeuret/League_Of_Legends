@@ -6,9 +6,8 @@ using Shared;
 
 namespace Entity_Framework;
 
- public class ChampionManager : EFManager<Champion>, IChampionsManager
+ public class ChampionManager : IChampionsManager
 {
-    private readonly ILogger<ChampionManager> _logger;
     public Task<int> GetNbItems()
     {
         using (var context = new ApplicationDbContext())

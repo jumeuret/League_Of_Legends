@@ -5,7 +5,7 @@ using Shared;
 
 namespace Entity_Framework;
 
-public class SkinManager : EFManager<Champion>, ISkinsManager
+public class SkinManager : ISkinsManager
 {
     public Task<int> GetNbItems()
     {

@@ -2,11 +2,11 @@
 using DTO;
 using Microsoft.AspNetCore.Mvc;
 using Model;
-using StubLib;
 
 namespace API_lol.Controllers;
 
-[Route("api/skins")]
+[Route("api/v{version:apiVersion}/[controller]")]
+[ApiVersion("1.0")]
 [ApiController]
 public class SkinControllers : ControllerBase
 {

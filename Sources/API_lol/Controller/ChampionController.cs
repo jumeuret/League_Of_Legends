@@ -8,7 +8,8 @@ using Model;
 
 namespace API_lol.Controllers
 {
-    [Route("api/champions")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("1.0")]
     [ApiController]
     public class ChampionController : ControllerBase
     {
