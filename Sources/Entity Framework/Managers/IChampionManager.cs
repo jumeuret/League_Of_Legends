@@ -2,7 +2,7 @@
 
 namespace Entity_Framework;
 
-public interface IChampionManager
+public interface IChampionManager 
 {
     public int GetNbItemsByCharacteristic(string charName);
 

@@ -29,7 +29,27 @@ public class ChampionManager : IGenericDataManager<Champion>
 
     public Task<IEnumerable<Champion>> GetItems(int index, int count, string? orderingPropertyName = null, bool descending = false)
     {
-        throw new NotImplementedException();
+        using (var context = new ApplicationDbContext())
+        {
+            var championsEntity = context.ChampionSet.AsEnumerable();
+
+            if (!string.IsNullOrEmpty(orderingPropertyName))
+            {
+                var propertyInfo = typeof(Champion).GetProperty(orderingPropertyName);
+                if (propertyInfo != null)
+                {
+                    championsEntity = descending
+                        ? championsEntity.OrderByDescending(championEntity => propertyInfo.GetValue(championEntity))
+                        : championsEntity.OrderBy(championEntity => propertyInfo.GetValue(championEntity));
+                }
+            }
+
+            championsEntity = championsEntity.Skip(index).Take(count);
+
+            var champions =  championsEntity.Select(champion => champion.ToChampion());
+
+            return Task.FromResult(champions);
+        }
     }
 
     public Task<int> GetNbItemsByName(string substring)
@@ -50,9 +70,8 @@ public class ChampionManager : IGenericDataManager<Champion>
             var championOldEntity = oldItem.ToChampionEntity();
             var championNewEntity = newItem.ToChampionEntity();
             var championUpdate = context.ChampionSet.Single(c => c == championOldEntity);
-            championUpdate = championNewEntity;
+            context.Entry(championUpdate).CurrentValues.SetValues(championNewEntity);
             context.SaveChanges();
-
             return Task.FromResult(championUpdate.ToChampion());
         }
     }
