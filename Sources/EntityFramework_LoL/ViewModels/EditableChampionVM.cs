@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using Model;
 
 namespace ViewModels
@@ -60,7 +58,7 @@ namespace ViewModels
 
 		public ChampionVM ToChampionVM()
 		{
-			var champion = new Champion(11, name, championClass, iconBase64, largeImageBase64, bio);
+			var champion = new Champion(name, championClass, iconBase64, largeImageBase64, bio);
 			champion.AddCharacteristics(characteristics.Select(kvp => Tuple.Create(kvp.Key, kvp.Value)).ToArray());
 			foreach(var skillVM in Skills)
 			{

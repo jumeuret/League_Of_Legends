@@ -5,6 +5,8 @@ namespace Model
 {
 	public class Skin : IEquatable<Skin>
 	{
+		
+		public int Id { get; set;}
 		public string Name
 		{
 			get => name;
@@ -51,8 +53,9 @@ namespace Model
 		}
 		private readonly Champion champion = null!;
 
-		public Skin(string name, Champion champion, float price = 0.0f, string icon = "", string image = "", string description = "")
+		public Skin(int id, string name, Champion champion, float price = 0.0f, string icon = "", string image = "", string description = "")
 		{
+			Id = id;
 			Name = name;
 			Champion = champion;
 			Champion.AddSkin(this);

@@ -49,7 +49,7 @@ public class UnitTest1
         Assert.NotNull(objectResult);
         Assert.Equal(championsResult, objectResult);
     }
-    /*
+    
     [Fact]
     public async void Test_GetChampion_ReturnAllChampions()
     {
@@ -67,7 +67,7 @@ public class UnitTest1
         Assert.Equal(6,champions.Count());
         
     }
-    */
+    
     /*[Fact]
     public async void Test_GetChampionReturnNotFoundResult()
     {

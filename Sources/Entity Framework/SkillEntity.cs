@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entity_Framework;
 
-[Table("Skills")]
+[Table("Skill")]
 public class SkillEntity
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
