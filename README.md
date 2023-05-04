@@ -1,6 +1,6 @@
- League of Legend
+# League of Legend
 
-Ce projet a été réalisé en 2ème année de BUT en Informatique lors des cours de consommation et développements de services et entity framework avec le langage de programmation C#. 
+Ce projet a été réalisé en 2ème année de BUT en Informatique lors des cours de Consommation et développements de services et Entity framework avec le langage de programmation C#. 
 
 ## Lancer notre projet
 
